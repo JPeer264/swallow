@@ -1,0 +1,8 @@
+# modules
+node_modules
+bower_components
+
+# gulp generated
+dev
+dist
+.cache
