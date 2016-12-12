@@ -10,10 +10,12 @@ module.exports = function (options) {
                 autoprefixer({ browsers: ['last 2 versions'] })
             ];
 
-            return gulp.src('src/**/*.scss')
+            return gulp.src(gulp.gconfig.get('paths.src.files.scss'))
+                .pipe(plugins.sourcemaps.init())
                 .pipe(plugins.sass())
                 .pipe(plugins.postcss(postcssProcessors))
-                .pipe(gulp.dest('dev'));
+                .pipe(plugins.sourcemaps.write(gulp.gconfig.get('paths.base')))
+                .pipe(gulp.dest(gulp.gconfig.get('paths.dev.base')));
         }
     };
 };
