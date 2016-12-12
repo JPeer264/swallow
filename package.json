@@ -25,6 +25,7 @@
     "gulp-load-plugins": "^1.4.0",
     "gulp-postcss": "^6.2.0",
     "gulp-sass": "^3.0.0",
+    "gulp-sourcemaps": "^1.9.1",
     "gulp-uglify": "^2.0.0",
     "gulp-util": "^3.0.7",
     "require-dir": "^0.3.1"
