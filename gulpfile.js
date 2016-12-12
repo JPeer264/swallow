@@ -1,5 +1,6 @@
 'use strict';
 
+const _       = require('lodash');
 const gulp    = require('gulp');
 const grunt   = require('grunt');
 const plugins = require('gulp-load-plugins')();
@@ -207,6 +208,7 @@ const paths = {
                     tests: [
                         "!<%= paths.src.tests %>"
                     ],
+                    browser_scss: "!<%= paths.src.folder.assets.scss %>/browser.*/**/*.scss",
                     _js: [
                         "!<%=   paths.src.base   %>/**/_*.js"
                     ],
@@ -251,6 +253,7 @@ const paths = {
                     ],
                     scss: [
                         "<%= paths.src.allFiles.scss %>",
+                        "<%= paths.src.ignore.browser_scss %>",
                         "<%= paths.src.ignore._scss %>"
                     ],
                     css: [
@@ -344,8 +347,9 @@ const paths = {
     };
 
 gulp.util         = require('gulp-util');
+gulp.util._       = _;
 gulp.gconfig      = grunt.config;
-gulp.gconfig.data = paths;
+gulp.gconfig.init(paths);
 
 function getTask(mainTask, subTask) {
     const task = require('./config/gulp/' + mainTask)({gulp, plugins, paths});
@@ -357,7 +361,7 @@ let taskName = 'default';
 
 // managing
 gulp.task('manage', ['manage:sass', 'manage:js']);
-gulp.task('manage:js', getTask('manage', 'js'));
+gulp.task('manage:js', getTask('manage', 'js:own'));
 gulp.task('manage:sass', getTask('manage', 'sass'));
 
 // linting
