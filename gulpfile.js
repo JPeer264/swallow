@@ -1,6 +1,7 @@
 'use strict';
 
 const gulp    = require('gulp');
+const grunt   = require('grunt');
 const plugins = require('gulp-load-plugins')();
 const directories = {
     src: 'src',
@@ -342,7 +343,9 @@ const paths = {
         }
     };
 
-gulp.util = require('gulp-util');
+gulp.util         = require('gulp-util');
+gulp.gconfig      = grunt.config;
+gulp.gconfig.data = paths;
 
 function getTask(mainTask, subTask) {
     const task = require('./config/gulp/' + mainTask)({gulp, plugins, paths});

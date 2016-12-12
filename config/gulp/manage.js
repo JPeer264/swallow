@@ -9,10 +9,7 @@ module.exports = function (options) {
             const postcssProcessors = [
                 autoprefixer({ browsers: ['last 2 versions'] })
             ];
-            console.log(paths)
 
-            var t = gulp.util.template('src/scss/main.scss', paths);
-            console.log(t)
             return gulp.src('src/**/*.scss')
                 .pipe(plugins.sass())
                 .pipe(plugins.postcss(postcssProcessors))
