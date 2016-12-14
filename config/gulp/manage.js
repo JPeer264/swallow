@@ -11,7 +11,6 @@ module.exports = options => {
                 autoprefixer({ browsers: ['last 2 versions'] })
             ];
 
-            console.log(gulp.gconfig.get('paths.src.files.scss'))
             return gulp.src(gulp.gconfig.get('paths.src.files.scss'))
                 .pipe(plugins.sourcemaps.init())
                 .pipe(plugins.sass())
@@ -31,11 +30,25 @@ module.exports = options => {
                 .pipe(gulp.dest(gulp.gconfig.get('paths.dev.folder.assets.js')));
         },
         'js:vendor': () => {
-            console.log(mainBowerFiles())
-            // return gulp.src(gulp.gconfig.get('paths.src.files.couldBeVendor.js'))
-            //     .pipe(plugins.sourcemaps.init())
-            //     .pipe(plugins.sourcemaps.write(gulp.gconfig.get('paths.base')))
-            //     .pipe(gulp.dest(gulp.gconfig.get('paths.dev.base')));
+            let bowerFiles;
+
+            // try to read bower files
+            try {
+                bowerFiles = mainBowerFiles();
+            } catch (e) {
+                bowerFiles = '';
+            }
+
+            return gulp.src(gulp.util._.flatten([
+                    gulp.gconfig.get('paths.src.files.couldBeVendor.js'),
+                    gulp.gconfig.get('paths.vendor.js'),
+                    gulp.gconfig.get('paths.src.ignore.min'),
+                    bowerFiles
+                ]))
+                .pipe(plugins.sourcemaps.init())
+                .pipe(plugins.concat('vendor.js'))
+                .pipe(plugins.sourcemaps.write(gulp.gconfig.get('paths.base')))
+                .pipe(gulp.dest(gulp.gconfig.get('paths.dev.folder.assets.js')));
         }
     };
 };
