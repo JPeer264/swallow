@@ -362,6 +362,7 @@ let taskName = 'default';
 // managing
 gulp.task('manage', ['manage:sass', 'manage:js']);
 gulp.task('manage:js', getTask('manage', 'js:own'));
+gulp.task('manage:js:vendor', getTask('manage', 'js:vendor'));
 gulp.task('manage:sass', getTask('manage', 'sass'));
 
 // linting

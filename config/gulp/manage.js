@@ -3,6 +3,7 @@ module.exports = options => {
     const paths        = options.paths;
     const plugins      = options.plugins;
     const autoprefixer = require('autoprefixer');
+    const mainBowerFiles = require('main-bower-files');
 
     return {
         sass: () => {
@@ -30,10 +31,11 @@ module.exports = options => {
                 .pipe(gulp.dest(gulp.gconfig.get('paths.dev.folder.assets.js')));
         },
         'js:vendor': () => {
-            return gulp.src(gulp.gconfig.get('paths.src.files.couldBeVendor.js'))
-                .pipe(plugins.sourcemaps.init())
-                .pipe(plugins.sourcemaps.write(gulp.gconfig.get('paths.base')))
-                .pipe(gulp.dest(gulp.gconfig.get('paths.dev.base')));
+            console.log(mainBowerFiles())
+            // return gulp.src(gulp.gconfig.get('paths.src.files.couldBeVendor.js'))
+            //     .pipe(plugins.sourcemaps.init())
+            //     .pipe(plugins.sourcemaps.write(gulp.gconfig.get('paths.base')))
+            //     .pipe(gulp.dest(gulp.gconfig.get('paths.dev.base')));
         }
     };
 };
