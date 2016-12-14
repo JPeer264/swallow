@@ -366,7 +366,6 @@ gulp.task('manage:js:vendor', getTask('manage', 'js:vendor'));
 gulp.task('manage:sass', getTask('manage', 'sass'));
 
 // linting
-// @todo check which looks better
 gulp.task('lint', ['lint:js', 'lint:css', 'lint:html']);
 gulp.task('lint:js',   getTask('lint', 'js'));
 gulp.task('lint:css',  getTask('lint', 'css'));
