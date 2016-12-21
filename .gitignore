@@ -4,5 +4,5 @@ bower_components
 
 # gulp generated
 dev
-dist
+dest
 .cache
