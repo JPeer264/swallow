@@ -7,7 +7,7 @@ const plugins = require('gulp-load-plugins')();
 const directories = {
     src: 'src',
     assets: 'assets',
-    dest: 'dist',
+    dest: 'dest',
     dev: 'dev',
     cache: '.cache'
 };
@@ -158,6 +158,8 @@ const paths = {
                     }
                 },
                 files: {
+                    html: "<%= paths.dev.base %>/**/*.html",
+                    js: "<%= paths.dev.folder.assets.jss %>/*.js",
                     css: "<%= paths.dev.folder.assets.csss %>/*.css",
                     instrumented: [
                         "<%=   paths.dev.folder.tests.instrumented   %>/**/*.class.js",
@@ -372,9 +374,10 @@ gulp.task('lint:css',  getTask('lint', 'css'));
 gulp.task('lint:html', getTask('lint', 'html'));
 
 // minifying
-gulp.task('minify', ['minify:css', 'minify:js']);
-gulp.task('minify:js', getTask('minify', 'js'));
-gulp.task('minify:css', getTask('minify', 'css'));
+gulp.task('minify', ['minify:css', 'minify:js', 'minify:html']);
+gulp.task('minify:js', ['manage:js', 'minify:css'], getTask('minify', 'js'));
+gulp.task('minify:css', ['manage:sass'], getTask('minify', 'css'));
+gulp.task('minify:html', ['minify:css'], getTask('minify', 'html'));
 
 // test
 gulp.task('test', getTask('test', 'all'));
