@@ -1,8 +1,8 @@
 module.exports = options => {
-    const gulp         = options.gulp;
-    const paths        = options.paths;
-    const plugins      = options.plugins;
-    const autoprefixer = require('autoprefixer');
+    const gulp           = options.gulp;
+    const paths          = options.paths;
+    const plugins        = options.plugins;
+    const autoprefixer   = require('autoprefixer');
     const mainBowerFiles = require('main-bower-files');
 
     return {

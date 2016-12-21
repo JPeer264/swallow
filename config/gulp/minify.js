@@ -4,7 +4,7 @@ module.exports = options => {
     const plugins      = options.plugins;
 
     return {
-        js: function () {
+        js: () => {
             return gulp.src(gulp.data.get('paths.dev.files.js'))
                 .pipe(plugins.sourcemaps.init({loadMaps: true}))
                 .pipe(plugins.rcs())
@@ -15,7 +15,7 @@ module.exports = options => {
                 .pipe(plugins.sourcemaps.write(gulp.data.get('paths.base')))
                 .pipe(gulp.dest(gulp.data.get('paths.dest.folder.assets.js')));
         },
-        css: function () {
+        css: () => {
             return gulp.src(gulp.data.get('paths.dev.files.css'))
                 .pipe(plugins.sourcemaps.init({loadMaps: true}))
                 .pipe(plugins.rcs())
@@ -26,7 +26,7 @@ module.exports = options => {
                 .pipe(plugins.sourcemaps.write(gulp.data.get('paths.base')))
                 .pipe(gulp.dest(gulp.data.get('paths.dest.folder.assets.css')));
         },
-        html: function () {
+        html: () => {
             return gulp.src(gulp.data.get('paths.src.allFiles.html'))
                 .pipe(plugins.cdnify({
                     rewriter: url => {
