@@ -348,10 +348,10 @@ const paths = {
         }
     };
 
-gulp.util         = require('gulp-util');
-gulp.util._       = _;
-gulp.gconfig      = grunt.config;
-gulp.gconfig.init(paths);
+gulp.util   = require('gulp-util');
+gulp.util._ = _;
+gulp.data   = grunt.config;
+gulp.data.init(paths);
 
 function getTask(mainTask, subTask) {
     const task = require('./config/gulp/' + mainTask)({gulp, plugins, paths});
