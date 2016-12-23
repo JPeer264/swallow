@@ -17,7 +17,7 @@ function getTask(mainTask, subTask) {
     return task[subTask];
 }
 
-let taskName = 'default';
+gulp.task('default', ['build:prod']);
 
 // managing
 gulp.task('manage', ['manage:sass', 'manage:js:vendor', 'manage:js']);
