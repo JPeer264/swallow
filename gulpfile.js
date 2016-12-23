@@ -27,8 +27,8 @@ gulp.task('manage:sass', getTask('manage', 'sass'));
 
 // linting
 gulp.task('lint', ['lint:js', 'lint:css', 'lint:html']);
-gulp.task('lint:js',   getTask('lint', 'js'));
-gulp.task('lint:css',  getTask('lint', 'css'));
+gulp.task('lint:js', getTask('lint', 'js'));
+gulp.task('lint:css', ['manage:sass'], getTask('lint', 'css'));
 gulp.task('lint:html', getTask('lint', 'html'));
 
 // minifying
@@ -50,7 +50,7 @@ gulp.task('build', ['build:prod']);
 gulp.task('build:dev', ['manage'], () => {
     // copy:dev and copy:src (sourcemaps)
 });
-gulp.task('build:prod', ['build:dev'], () => {
+gulp.task('build:prod', ['minify'], () => {
     // rcs, minify, copy:prod, cdnify:prod, clean:dev
 });
 
