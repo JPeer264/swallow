@@ -8,7 +8,12 @@ module.exports = options => {
             return gulp.src('/');
         },
         js: () => {
-            return gulp.src('/');
+            return gulp.src(gulp.util._.flatten(gulp.data.get('paths.src.files.js')))
+                .pipe(plugins.eslint({
+                    configFile: gulp.data.get('paths.config.eslint')
+                }))
+                .pipe(plugins.eslint.format())
+                .pipe(plugins.eslint.failOnError());
         },
         css: () => {
             return gulp.src(gulp.data.get('paths.dev.base') + '/**/*.css')

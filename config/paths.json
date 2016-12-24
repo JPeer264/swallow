@@ -339,7 +339,7 @@
         "config": {
             "base": "<%= paths.base %>/config",
             "csslint": "<%= paths.config.base %>/csslint.json",
-            "eslint": "<%= paths.config.base %>/eslint.json"
+            "eslint": "<%= paths.config.base %>/.eslintrc"
         }
     }
 }
