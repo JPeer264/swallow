@@ -30,6 +30,7 @@ gulp.task('manage:sass:browser', getTask('manage', 'sass:browser'));
 gulp.task('lint', ['lint:js', 'lint:css', 'lint:html']);
 gulp.task('lint:js', getTask('lint', 'js'));
 gulp.task('lint:css', ['manage:sass'], getTask('lint', 'css'));
+gulp.task('lint:scss', getTask('lint', 'scss'));
 gulp.task('lint:html', getTask('lint', 'html'));
 
 // minifying
