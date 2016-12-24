@@ -39,7 +39,7 @@ gulp.task('minify:css', ['manage:sass'], getTask('minify', 'css'));
 gulp.task('minify:html', ['minify:css'], getTask('minify', 'html'));
 
 // test
-gulp.task('test', getTask('test', 'all'));
+gulp.task('test', ['manage:js:vendor'], getTask('test', 'all'));
 
 // reports
 gulp.task('reports', ['reports:test', 'reports:lint']);
