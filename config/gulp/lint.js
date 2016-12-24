@@ -4,18 +4,18 @@ module.exports = options => {
     const plugins = options.plugins;
 
     return {
-        sass: function () {
+        sass: () => {
             return gulp.src('/');
         },
-        js: function () {
+        js: () => {
             return gulp.src('/');
         },
-        css: function () {
+        css: () => {
             return gulp.src(gulp.data.get('paths.dev.base') + '/**/*.css')
                 .pipe(plugins.csslint(gulp.data.get('paths.config.csslint')))
                 .pipe(plugins.csslint.formatter());
         },
-        html: function () {
+        html: () => {
             return gulp.src('/');
         },
     };
