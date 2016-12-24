@@ -20,10 +20,11 @@ function getTask(mainTask, subTask) {
 gulp.task('default', ['build:prod']);
 
 // managing
-gulp.task('manage', ['manage:sass', 'manage:js:vendor', 'manage:js']);
+gulp.task('manage', ['manage:sass', 'manage:sass:browser', 'manage:js:vendor', 'manage:js']);
 gulp.task('manage:js', getTask('manage', 'js:own'));
 gulp.task('manage:js:vendor', getTask('manage', 'js:vendor'));
 gulp.task('manage:sass', getTask('manage', 'sass'));
+gulp.task('manage:sass:browser', getTask('manage', 'sass:browser'));
 
 // linting
 gulp.task('lint', ['lint:js', 'lint:css', 'lint:html']);

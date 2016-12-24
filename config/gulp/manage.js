@@ -2,15 +2,17 @@ module.exports = options => {
     const gulp           = options.gulp;
     const paths          = options.paths;
     const plugins        = options.plugins;
+    const path           = require('path');
+    const glob           = require('glob');
+    const merge          = require('merge-stream');
     const autoprefixer   = require('autoprefixer');
     const mainBowerFiles = require('main-bower-files');
+    const postcssProcessors = [
+        autoprefixer({ browsers: ['last 2 versions'] })
+    ];
 
     return {
         sass: () => {
-            const postcssProcessors = [
-                autoprefixer({ browsers: ['last 2 versions'] })
-            ];
-
             return gulp.src(gulp.data.get('paths.src.files.scss'))
                 .pipe(plugins.sourcemaps.init())
                 .pipe(plugins.sass())
@@ -49,6 +51,32 @@ module.exports = options => {
                 .pipe(plugins.concat('vendor.js'))
                 .pipe(plugins.sourcemaps.write(gulp.data.get('paths.base')))
                 .pipe(gulp.dest(gulp.data.get('paths.dev.folder.assets.js')));
+        },
+        'sass:browser': () => {
+            let stream = merge();
+
+            glob('./src/assets/scss/*', (err, paths) => {
+                // delete if no indexOf browser.
+                for (let dir of paths) {
+                    // continue if the path is not the right dir
+                    if (dir.indexOf('browser.') === -1) {
+                        continue;
+                    }
+
+                    let dirName = path.basename(dir);
+                    let fileName = dirName.slice(8, dirName.length);
+
+                    stream.add(gulp.src([dir + '/**/*.scss', '!**/_*.scss'])
+                        .pipe(plugins.sourcemaps.init())
+                        .pipe(plugins.sass())
+                        .pipe(plugins.postcss(postcssProcessors))
+                        .pipe(plugins.concat(fileName + '.css'))
+                        .pipe(plugins.sourcemaps.write(gulp.data.get('paths.base')))
+                        .pipe(gulp.dest(gulp.data.get('paths.dev.folder.assets.css'))));
+                }
+            });
+
+            return stream;
         }
     };
 };
