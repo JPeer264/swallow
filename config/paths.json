@@ -176,6 +176,11 @@
         "src": {
             "base": "<%=  paths.base      %>/<%= names.src %>",
             "tests": "<%= paths.src.base  %>/**/*.spec.js",
+            "copy": [
+                "<%= paths.src.base %>/**/*",
+                "!<%= paths.src.base %>/**/*.js",
+                "!<%= paths.src.base %>/**/*.scss"
+            ],
             "folder": {
                 "assets": {
                     "base": "<%=  paths.src.base               %>/<%= names.assets %>",
