@@ -10,7 +10,7 @@ module.exports = options => {
                     configFile: gulp.data.get('paths.config.scsslint')
                 }))
                 .pipe(plugins.sassLint.format())
-                .pipe(plugins.sassLint.failOnError())
+                .pipe(plugins.sassLint.failOnError());
         },
         js: () => {
             return gulp.src(gulp.util._.flatten(gulp.data.get('paths.src.files.js')))
@@ -21,7 +21,11 @@ module.exports = options => {
                 .pipe(plugins.eslint.failOnError());
         },
         html: () => {
-            return gulp.src('/');
+            return gulp.src(gulp.data.get('paths.src.allFiles.html'))
+                .pipe(plugins.htmllint({
+                    failOnError: true,
+                    config: gulp.data.get('paths.config.htmllint')
+                }));
         },
     };
 };
