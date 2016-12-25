@@ -3,6 +3,7 @@
 const _       = require('lodash');
 const gulp    = require('gulp');
 const grunt   = require('grunt');
+const merge   = require('merge-stream');
 const paths   = require('./config/paths.json');
 const plugins = require('gulp-load-plugins')();
 const deleteEmpty = require('delete-empty');
@@ -58,6 +59,7 @@ gulp.task('reports:lint', getTask('lint', 'reports'));
 
 // build
 gulp.task('build', ['build:prod']);
+
 gulp.task('build:dev', ['manage'], () => {
     const stream = gulp.src(gulp.data.get('paths.src.copy'))
         .pipe(gulp.dest(gulp.data.get('paths.dev.base')));
@@ -68,8 +70,27 @@ gulp.task('build:dev', ['manage'], () => {
 
     return stream;
 });
+
 gulp.task('build:prod', ['minify'], () => {
-    // rcs, minify, copy:prod, cdnify:prod, clean:dev
+    let stream = merge();
+
+    // first stream to copy everything but html, js and scss
+    stream.add(gulp.src(_.flatten([
+            gulp.data.get('paths.src.copy'),
+            gulp.data.get('paths.src.ignore.html')
+        ]))
+        .pipe(gulp.dest(gulp.data.get('paths.dest.base'))));
+
+    // clean dev dir - optional
+    stream.add(gulp.src(gulp.data.get('paths.dev.base'))
+        .pipe(plugins.clean()));
+
+    // clean empty dir
+    stream.on('end', () => {
+        return deleteEmpty.sync(gulp.data.get('paths.dest.base'));
+    });
+
+    return stream;
 });
 
 // serve

@@ -223,6 +223,7 @@
                 "_scss": "!<%= paths.src.base %>/**/_*.scss",
                 "_css": "!<%= paths.src.base %>/**/_*.css",
                 "_html": "!<%= paths.src.base %>/**/_*.html",
+                "html": "!<%= paths.src.base %>/**/*.html",
                 "assets": [
                     "!<%= paths.src.files.assets.js",
                     "!<%= paths.src.files.assets.css",
