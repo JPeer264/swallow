@@ -5,6 +5,7 @@ const gulp    = require('gulp');
 const grunt   = require('grunt');
 const paths   = require('./config/paths.json');
 const plugins = require('gulp-load-plugins')();
+const deleteEmpty = require('delete-empty');
 
 gulp.util   = require('gulp-util');
 gulp.util._ = _;
@@ -58,7 +59,14 @@ gulp.task('reports:lint', getTask('lint', 'reports'));
 // build
 gulp.task('build', ['build:prod']);
 gulp.task('build:dev', ['manage'], () => {
-    // copy:dev and copy:src (sourcemaps)
+    const stream = gulp.src(gulp.data.get('paths.src.copy'))
+        .pipe(gulp.dest(gulp.data.get('paths.dev.base')));
+
+    stream.on('end', () => {
+        return deleteEmpty.sync('dev/')
+    });
+
+    return stream;
 });
 gulp.task('build:prod', ['minify'], () => {
     // rcs, minify, copy:prod, cdnify:prod, clean:dev
