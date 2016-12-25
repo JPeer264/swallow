@@ -20,11 +20,6 @@ module.exports = options => {
                 .pipe(plugins.eslint.format())
                 .pipe(plugins.eslint.failOnError());
         },
-        css: () => {
-            return gulp.src(gulp.data.get('paths.dev.base') + '/**/*.css')
-                .pipe(plugins.csslint(gulp.data.get('paths.config.csslint')))
-                .pipe(plugins.csslint.formatter());
-        },
         html: () => {
             return gulp.src('/');
         },
