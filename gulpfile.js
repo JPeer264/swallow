@@ -19,6 +19,15 @@ function getTask(mainTask, subTask) {
 
 gulp.task('default', ['build:prod']);
 
+gulp.task('clean', () => {
+    return gulp.src(_.flatten([
+            gulp.data.get('paths.dev.base'),
+            gulp.data.get('paths.dest.base'),
+            './coverage'
+        ]))
+        .pipe(plugins.clean())
+});
+
 // managing
 gulp.task('manage', ['manage:sass', 'manage:js:vendor', 'manage:js']);
 gulp.task('manage:js', getTask('manage', 'js:own'));
