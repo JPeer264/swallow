@@ -27,7 +27,7 @@ gulp.task('clean', () => {
             gulp.data.get('paths.dest.base'),
             './coverage'
         ]))
-        .pipe(plugins.clean())
+        .pipe(plugins.clean());
 });
 
 // managing
