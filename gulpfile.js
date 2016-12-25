@@ -63,7 +63,7 @@ gulp.task('build:dev', ['manage'], () => {
         .pipe(gulp.dest(gulp.data.get('paths.dev.base')));
 
     stream.on('end', () => {
-        return deleteEmpty.sync('dev/')
+        return deleteEmpty.sync(gulp.data.get('paths.dev.base'))
     });
 
     return stream;
