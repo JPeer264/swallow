@@ -13,11 +13,11 @@ gulp.util._ = _;
 gulp.data   = grunt.config;
 gulp.data.init(paths);
 
-function getTask(mainTask, subTask) {
+const getTask = (mainTask, subTask) => {
     const task = require('./config/gulp/' + mainTask)({gulp, plugins, paths});
 
     return task[subTask];
-}
+};
 
 gulp.task('default', ['build:prod']);
 
