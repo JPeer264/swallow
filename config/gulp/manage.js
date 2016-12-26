@@ -1,10 +1,10 @@
 module.exports = options => {
-    const gulp           = options.gulp;
-    const paths          = options.paths;
-    const plugins        = options.plugins;
-    const path           = require('path');
-    const glob           = require('glob');
-    const merge          = require('merge-stream');
+    const gulp    = options.gulp;
+    const paths   = options.paths;
+    const plugins = options.plugins;
+    const path    = require('path');
+    const glob    = require('glob');
+    const merge   = require('merge-stream');
     const autoprefixer   = require('autoprefixer');
     const mainBowerFiles = require('main-bower-files');
     const postcssProcessors = [
