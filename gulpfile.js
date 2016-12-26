@@ -7,6 +7,7 @@ const merge   = require('merge-stream');
 const paths   = require('./config/paths.json');
 const plugins = require('gulp-load-plugins')();
 const deleteEmpty = require('delete-empty');
+const browserSync = require('browser-sync').create();
 
 gulp.util   = require('gulp-util');
 gulp.util._ = _;
@@ -93,15 +94,23 @@ gulp.task('build:prod', ['minify'], () => {
     return stream;
 });
 
-gulp.task('watch', () => {
-    // @todo add watch files
-});
-
 // serve
 gulp.task('serve', ['serve:dev']);
+
 gulp.task('serve:dev', ['build:dev'], () => {
-    // @todo add browsersync
+    browserSync.init({
+        server: gulp.data.get('paths.dev.base'),
+        open: true
+    });
+
+    gulp.watch(gulp.data.get('paths.src.allFiles.js'), ['manage:js'])
+    gulp.watch(gulp.data.get('paths.src.allFiles.scss'), ['manage:sass'])
+    gulp.watch(gulp.data.get('paths.src.allFiles.html'), () => {
+        return gulp.src(gulp.data.get('paths.src.copy'))
+            .pipe(gulp.dest(gulp.data.get('paths.dev.base')));
+    }).on('change', browserSync.reload);
 });
+
 gulp.task('serve:reports', () => {
     // @todo add tests without fail
 });
