@@ -1,5 +1,9 @@
 'use strict';
 
+// @todo reports get automatically produced by linting:
+// 1. linting should fail for CI
+// 2. linting should not fail for reports
+
 const _       = require('lodash');
 const gulp    = require('gulp');
 const grunt   = require('grunt');
