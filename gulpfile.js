@@ -93,5 +93,15 @@ gulp.task('build:prod', ['minify'], () => {
     return stream;
 });
 
+gulp.task('watch', () => {
+    // @todo add watch files
+});
+
 // serve
-// @todo
+gulp.task('serve', ['serve:dev']);
+gulp.task('serve:dev', ['build:dev'], () => {
+    // @todo add browsersync
+});
+gulp.task('serve:reports', () => {
+    // @todo add tests without fail
+});
