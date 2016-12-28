@@ -26,6 +26,7 @@ gulp.task('clean', () => {
     return gulp.src(_.flatten([
             gulp.data.get('paths.dev.base'),
             gulp.data.get('paths.dest.base'),
+            gulp.data.get('paths.reports.base'),
             './coverage'
         ]))
         .pipe(plugins.clean());
@@ -59,8 +60,15 @@ gulp.task('test', ['manage:js:vendor'], getTask('test', 'all'));
 
 // reports
 gulp.task('reports', ['reports:test', 'reports:lint']);
-gulp.task('reports:test', getTask('test', 'reports'));
-gulp.task('reports:lint', getTask('lint', 'reports'));
+gulp.task('reports:test', ['test']);
+gulp.task('reports:lint', () => {
+    let stream = require('merge-stream')();
+
+    stream.add(getTask('lint', 'js:report')());
+    stream.add(getTask('lint', 'scss:report')());
+
+    return stream;
+});
 
 // build
 gulp.task('build', ['build:prod']);
@@ -123,3 +131,5 @@ gulp.task('serve:dev',['build:dev'], () => {
 gulp.task('serve:reports', () => {
     // @todo add tests without fail
 });
+
+module.exports = gulp;
