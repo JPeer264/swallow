@@ -112,7 +112,7 @@ Just use `gulp serve`
 
 ### Reports
 
-Include generated reports in the `checkstyle` format for your CI system to check the quality of your project. The reports will be generated into the directory `./reports`.
+Include generated reports in the `checkstyle` format, for the linters, and the `cobertura` reports for your CI system to check the quality of your project. The reports will be generated into the directory `./reports`.
 
 Run:
 ```sh
