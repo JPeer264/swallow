@@ -146,8 +146,8 @@ gulp.task('serve:dev',['build:dev'], () => {
         open: true
     });
 
-    gulp.watch(gulp.data.get('paths.src.allFiles.js'), ['manage:js'])
-    gulp.watch(gulp.data.get('paths.src.allFiles.scss'), ['manage:sass'])
+    gulp.watch(gulp.data.get('paths.src.allFiles.js'), ['manage:js']).on('change', browserSync.reload);
+    gulp.watch(gulp.data.get('paths.src.allFiles.scss'), ['manage:sass']).on('change', browserSync.reload);
     gulp.watch(gulp.data.get('paths.src.allFiles.html'), () => {
         return gulp.src(gulp.data.get('paths.src.copy'))
             .pipe(gulp.dest(gulp.data.get('paths.dev.base')));
