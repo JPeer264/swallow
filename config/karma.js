@@ -33,11 +33,6 @@ module.exports = config => {
             'chai'
         ],
         autoWatch: false,
-        client: {
-            mocha: {
-                opts: './config/mocha.opts'
-            }
-        },
         reporters: [
             'progress',
             'coverage'
