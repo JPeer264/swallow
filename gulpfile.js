@@ -44,9 +44,13 @@ gulp.task('manage:sass:browser', getTask('manage', 'sass:browser'));
 
 // linting
 gulp.task('lint', ['lint:js', 'lint:scss', 'lint:html']);
+gulp.task('lint:fail', ['lint:js:fail', 'lint:scss:fail', 'lint:html:fail']);
 gulp.task('lint:js', getTask('lint', 'js'));
+gulp.task('lint:js:fail', getTask('lint', 'js:fail'));
 gulp.task('lint:scss', getTask('lint', 'scss'));
+gulp.task('lint:scss:fail', getTask('lint', 'scss:fail'));
 gulp.task('lint:html', getTask('lint', 'html'));
+gulp.task('lint:html:fail', getTask('lint', 'html:fail'));
 
 // minifying
 gulp.task('minify', ['minify:css', 'minify:js', 'minify:html']);
