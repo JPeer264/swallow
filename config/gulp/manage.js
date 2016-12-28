@@ -76,7 +76,7 @@ module.exports = options => {
                 }
             });
 
-            return stream;
+            return stream.isEmpty() ? gulp.util.noob : stream;
         }
     };
 };
