@@ -120,8 +120,11 @@ $ gulp reports
 ```
 And it will generate:
 
-- `./reports/sasslint.xml`
 - `./reports/eslint.xml`
+- `./reports/sasslint.xml`
+- `./reports/chrome/cobertura-coverage.xml`
+- `./reports/firefox/cobertura-coverage.xml`
+- `./reports/phantomjs/cobertura-coverage.xml`
 
 ## License
 
