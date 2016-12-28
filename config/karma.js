@@ -1,3 +1,5 @@
+const gulp = require('../gulpfile.js');
+
 // karma.conf.js
 module.exports = config => {
     config.set({
@@ -38,13 +40,23 @@ module.exports = config => {
             'coverage'
         ],
         coverageReporter: {
-            type : 'html',
-            dir : 'coverage/',
-            subdir: browser => {
-                // normalization process to keep a consistent browser name across different
-                // https://github.com/karma-runner/karma-coverage/blob/master/docs/configuration.md#subdir
-                return browser.toLowerCase().split(/[ /-]/)[0];
-            }
+            reporters: [{
+                type : 'html',
+                dir : gulp.data.get('paths.coverage.base'),
+                subdir: browser => {
+                    // normalization process to keep a consistent browser name across different
+                    // https://github.com/karma-runner/karma-coverage/blob/master/docs/configuration.md#subdir
+                    return browser.toLowerCase().split(/[ /-]/)[0];
+                }
+            }, {
+                type : 'cobertura',
+                dir : gulp.data.get('paths.reports.base'),
+                subdir: browser => {
+                    // normalization process to keep a consistent browser name across different
+                    // https://github.com/karma-runner/karma-coverage/blob/master/docs/configuration.md#subdir
+                    return browser.toLowerCase().split(/[ /-]/)[0];
+                }
+            }]
         }
     });
 };
