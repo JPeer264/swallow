@@ -158,7 +158,7 @@
             }
         },
         "reports": {
-            "base": "<%= paths.dev.base %>/reports",
+            "base": "<%= paths.base %>/reports",
             "scss": "<%= paths.reports.base %>/sasslint.xml",
             "js": "<%= paths.reports.base %>/eslint.xml"
         },
