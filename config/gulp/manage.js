@@ -47,6 +47,7 @@ module.exports = options => {
                     gulp.data.get('paths.src.ignore.min'),
                     bowerFiles
                 ]))
+                .pipe(plugins.filter('**/*.js'))
                 .pipe(plugins.sourcemaps.init())
                 .pipe(plugins.concat('vendor.js'))
                 .pipe(plugins.sourcemaps.write(gulp.data.get('paths.base')))
