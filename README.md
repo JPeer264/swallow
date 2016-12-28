@@ -102,7 +102,7 @@ Test your code with mocha with `gulp test`. It will test your code in `chrome`, 
 ### Linting
 > All configuration files are stored in the directory `./config`
 
-Lint your `scss`, `js` and `html` code with `gulp lint`. This task will NOT fail. If you have a CI system
+Lint your `scss`, `js` and `html` code with `gulp lint`. This task will NOT fail. If you have a CI system just run `gulp lint:fail` and it will fail on any error.
 
 ### Live coding
 
