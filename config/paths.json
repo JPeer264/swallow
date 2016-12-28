@@ -203,14 +203,14 @@
             }
         },
         "reports": {
-            "base": "<%= paths.dev.base     %>/reports",
+            "base": "<%= paths.dev.base %>/reports",
             "coverage": "<%= paths.reports.base %>/coverage",
             "checkstyle": "<%= paths.reports.base %>/checkstyle.xml",
-            "pmd": "<%=        paths.reports.base %>/pmd.xml",
+            "pmd": "<%= paths.reports.base %>/pmd.xml",
             "html": "<%= paths.reports.base %>/.html-status.json",
             "html2": "<%= paths.reports.base %>/app.json",
-            "csslint": "",
-            "js": ""
+            "scss": "<%= paths.reports.base %>/sasslint.xml",
+            "js": "<%= paths.reports.base %>/eslint.xml"
         },
         "config": {
             "base": "<%= paths.base %>/config",
