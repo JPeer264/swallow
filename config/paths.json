@@ -157,6 +157,9 @@
                 }
             }
         },
+        "coverage": {
+            "base": "<%= paths.base %>/coverage"
+        },
         "reports": {
             "base": "<%= paths.base %>/reports",
             "scss": "<%= paths.reports.base %>/sasslint.xml",
