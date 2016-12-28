@@ -68,7 +68,7 @@ module.exports = options => {
             }))
             .pipe(plugins.eslint.format('checkstyle', fileStream));
 
-        stream.on('finish', function() {
+        stream.on('finish', () => {
             fileStream.end();
         });
 
