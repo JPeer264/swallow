@@ -1,0 +1,26 @@
+// =================
+// SECTION COMPONENT
+// =================
+$section-bubble-height: 200px;
+
+.sw-section {
+    content: 'test'
+}
+
+.sw-section--bubble-down {
+    position: relative;
+    margin-bottom: ($section-bubble-height / 2) + 30px;
+
+    &:after {
+        display: block;
+        content: '';
+        position: absolute;
+        left: -25%;
+        bottom: (-$section-bubble-height / 2);
+        height: $section-bubble-height;
+        width: 150%;
+        border-radius: 50%;
+        background: inherit;
+        z-index: -1;
+    }
+}

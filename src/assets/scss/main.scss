@@ -1,4 +1,7 @@
-// Variables
-@import 'variables';
+// ========
+// SETTINGS
+// ========
+@import 'settings/_foundation-flex';
+@import 'settings/_variables';
 
-@import 'components/test';
+@import 'components/section';
