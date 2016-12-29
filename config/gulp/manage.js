@@ -12,6 +12,16 @@ module.exports = options => {
     ];
 
     return {
+        hbs: () => {
+            return gulp.src(gulp.data.get('paths.src.base') + '/index.hbs')
+                .pipe(plugins.compileHandlebars({}, {
+                    batch : [
+                        gulp.data.get('paths.src.folder.assets.base') + '/templates'
+                    ],
+                }))
+                .pipe(plugins.rename('index.html'))
+                .pipe(gulp.dest(gulp.data.get('paths.dev.base')));
+        },
         sass: () => {
             return gulp.src(gulp.data.get('paths.src.files.scss'))
                 .pipe(plugins.sourcemaps.init())

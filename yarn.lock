@@ -2464,6 +2464,14 @@ gulp-clean-css@^2.3.2:
     through2 "^2.0.3"
     vinyl-sourcemaps-apply "^0.2.1"
 
+gulp-compile-handlebars:
+  version "0.6.1"
+  resolved "https://registry.yarnpkg.com/gulp-compile-handlebars/-/gulp-compile-handlebars-0.6.1.tgz#9cc1d9cb951105dfae530928d2a904a14d74c5d3"
+  dependencies:
+    gulp-util "^3.0.3"
+    handlebars ">=3.0.0"
+    through2 "^0.6.3"
+
 gulp-concat@^2.6.1:
   version "2.6.1"
   resolved "https://registry.yarnpkg.com/gulp-concat/-/gulp-concat-2.6.1.tgz#633d16c95d88504628ad02665663cee5a4793353"
@@ -2655,7 +2663,7 @@ gulplog@^1.0.0:
   dependencies:
     glogg "^1.0.0"
 
-handlebars@^4.0.1:
+handlebars@^4.0.1, handlebars@>=3.0.0:
   version "4.0.6"
   resolved "https://registry.yarnpkg.com/handlebars/-/handlebars-4.0.6.tgz#2ce4484850537f9c97a8026d5399b935c4ed4ed7"
   dependencies:

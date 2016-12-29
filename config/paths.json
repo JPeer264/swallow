@@ -44,7 +44,8 @@
             "copy": [
                 "<%= paths.src.base %>/**/*",
                 "!<%= paths.src.base %>/**/*.js",
-                "!<%= paths.src.base %>/**/*.scss"
+                "!<%= paths.src.base %>/**/*.scss",
+                "!<%= paths.src.base %>/**/*.hbs"
             ],
             "folder": {
                 "assets": {
@@ -103,6 +104,10 @@
                     "<%= paths.src.allFiles.js %>",
                     "<%= paths.src.ignore._js %>",
                     "<%= paths.src.ignore.tests %>"
+                ],
+                "hbs": [
+                    "<%= paths.src.base %>/**/*.hbs",
+                    "<%= paths.src.base %>/**/App.hbs"
                 ],
                 "scss": [
                     "<%= paths.src.allFiles.scss %>",

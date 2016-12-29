@@ -27,7 +27,7 @@ module.exports = options => {
                 .pipe(gulp.dest(gulp.data.get('paths.dest.folder.assets.css')));
         },
         html: () => {
-            return gulp.src(gulp.data.get('paths.src.allFiles.html'))
+            return gulp.src(gulp.data.get('paths.dev.files.html'))
                 .pipe(plugins.cdnify({
                     rewriter: url => {
                         var arr = url.split('.');
@@ -40,7 +40,7 @@ module.exports = options => {
                     }
                 }))
                 .pipe(plugins.rcs())
-                .pipe(plugins.htmlmin({collapseWhitespace: true}))
+                // .pipe(plugins.htmlmin({collapseWhitespace: true}))
                 .pipe(gulp.dest(gulp.data.get('paths.dest.base')));
         }
     };

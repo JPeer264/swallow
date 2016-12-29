@@ -53,9 +53,10 @@ gulp.task('clean', () => {
 
 // 1. Managing
 // -----------
-gulp.task('manage', ['manage:sass', 'manage:js:vendor', 'manage:js']);
+gulp.task('manage', ['manage:sass', 'manage:hbs', 'manage:js:vendor', 'manage:js']);
 gulp.task('manage:js', getTask('manage', 'js:own'));
 gulp.task('manage:js:vendor', getTask('manage', 'js:vendor'));
+gulp.task('manage:hbs', getTask('manage', 'hbs'));
 gulp.task('manage:sass', ['manage:sass:browser'], getTask('manage', 'sass'));
 gulp.task('manage:sass:browser', getTask('manage', 'sass:browser'));
 
@@ -75,7 +76,7 @@ gulp.task('lint:html:fail', getTask('lint', 'html:fail'));
 gulp.task('minify', ['minify:css', 'minify:js', 'minify:html']);
 gulp.task('minify:js', ['manage:js', 'minify:css'], getTask('minify', 'js'));
 gulp.task('minify:css', ['manage:sass'], getTask('minify', 'css'));
-gulp.task('minify:html', ['minify:css'], getTask('minify', 'html'));
+gulp.task('minify:html', ['minify:css', 'manage:hbs'], getTask('minify', 'html'));
 
 // 4. Testing
 // ----------
@@ -109,7 +110,7 @@ gulp.task('build:dev', ['manage'], () => {
     return stream;
 });
 
-gulp.task('build:prod', ['test', 'lint:fail'], () => {
+gulp.task('build:prod', () => {
     let stream = merge();
 
     // clean everything before start to make the production build
@@ -148,10 +149,7 @@ gulp.task('serve:dev',['build:dev'], () => {
 
     gulp.watch(gulp.data.get('paths.src.allFiles.js'), ['manage:js']).on('change', browserSync.reload);
     gulp.watch(gulp.data.get('paths.src.allFiles.scss'), ['manage:sass']).on('change', browserSync.reload);
-    gulp.watch(gulp.data.get('paths.src.allFiles.html'), () => {
-        return gulp.src(gulp.data.get('paths.src.copy'))
-            .pipe(gulp.dest(gulp.data.get('paths.dev.base')));
-    }).on('change', browserSync.reload);
+    gulp.watch(gulp.data.get('paths.src.files.hbs'), ['manage:hbs']).on('change', browserSync.reload);
 });
 
 gulp.task('serve:reports', () => {
