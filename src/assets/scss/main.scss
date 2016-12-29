@@ -2,8 +2,10 @@
 // SETTINGS
 // ========
 @import 'settings/_foundation-flex';
+@import '../../../bower_components/github-fork-ribbon-css/gh-fork-ribbon';
 @import 'settings/_variables';
 
 @import 'components/header';
+@import 'components/footer';
 @import 'components/section';
 @import 'components/divide';

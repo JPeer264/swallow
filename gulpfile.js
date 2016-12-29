@@ -110,7 +110,7 @@ gulp.task('build:dev', ['manage'], () => {
     return stream;
 });
 
-gulp.task('build:prod', () => {
+gulp.task('build:prod', ['test', 'lint:fail'], () => {
     let stream = merge();
 
     // clean everything before start to make the production build

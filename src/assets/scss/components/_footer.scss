@@ -1,0 +1,19 @@
+// ================
+// FOOTER COMPONENT
+// ================
+
+.sw-footer {
+    height: 50px;
+    background: $primary-color;
+    color: $white;
+    display: flex;
+}
+
+.sw-footer__inner {
+    align-self: center;
+    margin: 0 auto;
+
+    p {
+        margin: 0;
+    }
+}
