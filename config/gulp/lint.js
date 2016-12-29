@@ -6,7 +6,10 @@ module.exports = options => {
 
     // lints scss files but does not fail
     const scss = () => {
-        return stream = gulp.src(gulp.data.get('paths.src.allFiles.scss'))
+        return stream = gulp.src([
+                gulp.data.get('paths.src.allFiles.scss'),
+                '!**/*foundation*'
+            ])
             .pipe(plugins.sassLint({
                 configFile: gulp.data.get('paths.config.scsslint')
             }))
