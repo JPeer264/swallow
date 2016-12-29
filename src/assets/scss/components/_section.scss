@@ -7,6 +7,15 @@ $section-bubble-height: 200px;
     content: 'test'
 }
 
+.sw-section--light {
+    background: $white;
+}
+
+.sw-section--dark {
+    background: $primary-color;
+    color: $white;
+}
+
 .sw-section--bubble-down {
     position: relative;
     margin-bottom: ($section-bubble-height / 2) + 30px;
