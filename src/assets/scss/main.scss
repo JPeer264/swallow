@@ -9,3 +9,17 @@
 @import 'components/footer';
 @import 'components/section';
 @import 'components/divide';
+
+// github-fork-ribbon box-sizing fix, until 0.2.1 get released on bower
+.github-fork-ribbon:before, .github-fork-ribbon:after {
+  /* The right and left classes determine the side we attach our banner to */
+  -webkit-box-sizing: content-box;
+  -moz-box-sizing: content-box;
+  box-sizing: content-box;
+}
+
+
+.column--center {
+    display: flex;
+    align-items: center;
+}
