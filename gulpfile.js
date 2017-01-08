@@ -111,6 +111,10 @@ gulp.task('build:dev', ['manage'], () => {
 });
 
 gulp.task('build:prod', ['test', 'lint:fail'], () => {
+    gulp.start('build:prod:unsafe');
+});
+
+gulp.task('build:prod:unsafe', () => {
     let stream = merge();
 
     // clean everything before start to make the production build
