@@ -7,7 +7,9 @@ module.exports = options => {
         js: () => {
             return gulp.src(gulp.data.get('paths.dev.files.js'))
                 .pipe(plugins.sourcemaps.init({loadMaps: true}))
-                .pipe(plugins.rcs())
+                .pipe(plugins.rcs({
+                    exclude: '**/vendor.js'
+                }))
                 .pipe(plugins.uglify())
                 .pipe(plugins.rename({
                     suffix: '.min'
