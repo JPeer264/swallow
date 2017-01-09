@@ -53,8 +53,9 @@ gulp.task('clean', () => {
 
 // 1. Managing
 // -----------
-gulp.task('manage', ['manage:sass', 'manage:js:vendor', 'manage:js']);
-gulp.task('manage:js', getTask('manage', 'js:own'));
+gulp.task('manage', ['manage:sass', 'manage:js']);
+gulp.task('manage:js', ['manage:js:own', 'manage:js:vendor']);
+gulp.task('manage:js:own', getTask('manage', 'js:own'));
 gulp.task('manage:js:vendor', getTask('manage', 'js:vendor'));
 gulp.task('manage:sass', ['manage:sass:browser'], getTask('manage', 'sass'));
 gulp.task('manage:sass:browser', getTask('manage', 'sass:browser'));
