@@ -1,12 +1,13 @@
+import path from 'path';
+import glob from 'glob';
+import merge from 'merge-stream';
+import autoprefixer from 'autoprefixer';
+import mainBowerFiles from 'main-bower-files';
+
 module.exports = options => {
     const gulp    = options.gulp;
     const paths   = options.paths;
     const plugins = options.plugins;
-    const path    = require('path');
-    const glob    = require('glob');
-    const merge   = require('merge-stream');
-    const autoprefixer   = require('autoprefixer');
-    const mainBowerFiles = require('main-bower-files');
     const postcssProcessors = [
         autoprefixer({ browsers: ['last 2 versions'] })
     ];

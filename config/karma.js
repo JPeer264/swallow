@@ -1,4 +1,4 @@
-const gulp = require('../gulpfile.js');
+import gulp from '../gulpfile.js';
 
 // karma.conf.js
 module.exports = config => {

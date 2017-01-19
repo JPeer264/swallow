@@ -1,8 +1,9 @@
+import fs from 'fs-extra';
+
 module.exports = options => {
     const gulp    = options.gulp;
     const paths   = options.paths;
     const plugins = options.plugins;
-    const fs = require('fs-extra');
 
     // lints scss files but does not fail
     const scss = () => {
