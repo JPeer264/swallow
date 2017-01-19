@@ -6,14 +6,15 @@
 /*************
  ** MODULES **
  *************/
-const _       = require('lodash');
-const gulp    = require('gulp');
-const grunt   = require('grunt');
-const merge   = require('merge-stream');
-const paths   = require('./config/paths.json');
-const plugins = require('gulp-load-plugins')();
-const deleteEmpty = require('delete-empty');
+import _ from 'lodash';
+import gulp from 'gulp';
+import grunt from 'grunt';
+import merge from 'merge-stream';
+import paths from './config/paths.json';
+import deleteEmpty from 'delete-empty';
+
 const browserSync = require('browser-sync').create();
+const plugins = require('gulp-load-plugins')();
 
 /**
  * get a task in ./config/gulp/
