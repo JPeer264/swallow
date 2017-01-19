@@ -16,7 +16,9 @@
     "url": "https://github.com/JPeer264/swallow/issues"
   },
   "homepage": "https://github.com/JPeer264/swallow#readme",
-  "dependencies": {},
+  "dependencies": {
+    "babel-core": "^6.21.0"
+  },
   "devDependencies": {
     "autoprefixer": "^6.5.3",
     "babel-eslint": "^7.1.1",
