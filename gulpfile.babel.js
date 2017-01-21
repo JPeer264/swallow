@@ -165,7 +165,7 @@ gulp.task('serve:dev',['build:dev'], () => {
     }).on('change', browserSync.reload);
 });
 
-gulp.task('serve:reports', () => {
+gulp.task('serve:reports', ['reports'], () => {
     // @todo add tests without fail
 });
 
