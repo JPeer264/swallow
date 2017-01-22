@@ -1,4 +1,4 @@
-import gulp from '../gulpfile.js';
+import gulp from '../gulpfile.babel.js';
 
 // karma.conf.js
 module.exports = config => {
