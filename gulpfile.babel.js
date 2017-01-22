@@ -166,7 +166,13 @@ gulp.task('serve:dev',['build:dev'], () => {
 });
 
 gulp.task('serve:reports', ['reports'], () => {
-    // @todo add tests without fail
+    browserSync.init({
+        server: {
+            baseDir: gulp.data.get('paths.coverage.base'),
+            directory: true
+        },
+        open: true
+    });
 });
 
 module.exports = gulp;
