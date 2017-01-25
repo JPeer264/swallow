@@ -38,7 +38,7 @@ gulp.data.init(paths);
 /***********
  ** TASKS **
  ***********/
-gulp.task('default', ['build:prod']);
+// gulp.task('default', gulp.series('build:prod'));
 
 // 0. Helper
 // ---------
@@ -54,125 +54,125 @@ gulp.task('clean', () => {
 
 // 1. Managing
 // -----------
-gulp.task('manage', ['manage:sass', 'manage:js']);
-gulp.task('manage:js', ['manage:js:own', 'manage:js:vendor']);
-gulp.task('manage:js:own', getTask('manage', 'js:own'));
 gulp.task('manage:js:vendor', getTask('manage', 'js:vendor'));
-gulp.task('manage:sass', ['manage:sass:browser'], getTask('manage', 'sass'));
+gulp.task('manage:js:own', getTask('manage', 'js:own'));
+gulp.task('manage:js', gulp.parallel('manage:js:own', 'manage:js:vendor'));
 gulp.task('manage:sass:browser', getTask('manage', 'sass:browser'));
+gulp.task('manage:sass', gulp.series('manage:sass:browser', getTask('manage', 'sass')));
+gulp.task('manage', gulp.parallel('manage:sass', 'manage:js'));
 
-// 2. Linting
-// ----------
-gulp.task('lint', ['lint:js', 'lint:scss', 'lint:html']);
-gulp.task('lint:fail', ['lint:js:fail', 'lint:scss:fail', 'lint:html:fail']);
-gulp.task('lint:js', getTask('lint', 'js'));
-gulp.task('lint:js:fail', getTask('lint', 'js:fail'));
-gulp.task('lint:scss', getTask('lint', 'scss'));
-gulp.task('lint:scss:fail', getTask('lint', 'scss:fail'));
-gulp.task('lint:html', getTask('lint', 'html'));
-gulp.task('lint:html:fail', getTask('lint', 'html:fail'));
+// // 2. Linting
+// // ----------
+// gulp.task('lint', gulp.parallel('lint:js', 'lint:scss', 'lint:html'));
+// gulp.task('lint:fail', gulp.parallel('lint:js:fail', 'lint:scss:fail', 'lint:html:fail'));
+// gulp.task('lint:js', getTask('lint', 'js'));
+// gulp.task('lint:js:fail', getTask('lint', 'js:fail'));
+// gulp.task('lint:scss', getTask('lint', 'scss'));
+// gulp.task('lint:scss:fail', getTask('lint', 'scss:fail'));
+// gulp.task('lint:html', getTask('lint', 'html'));
+// gulp.task('lint:html:fail', getTask('lint', 'html:fail'));
 
-// 3. Minifying
-// ------------
-gulp.task('minify', ['minify:css', 'minify:js', 'minify:html']);
-gulp.task('minify:js', ['manage:js', 'minify:css'], getTask('minify', 'js'));
-gulp.task('minify:css', ['manage:sass'], getTask('minify', 'css'));
-gulp.task('minify:html', ['minify:css'], getTask('minify', 'html'));
+// // 3. Minifying
+// // ------------
+// gulp.task('minify', ['minify:css', 'minify:js', 'minify:html']);
+// gulp.task('minify:js', ['manage:js', 'minify:css'], getTask('minify', 'js'));
+// gulp.task('minify:css', ['manage:sass'], getTask('minify', 'css'));
+// gulp.task('minify:html', ['minify:css'], getTask('minify', 'html'));
 
-// 4. Testing
-// ----------
-gulp.task('test', ['manage:js:vendor'], getTask('test', 'all'));
+// // 4. Testing
+// // ----------
+// gulp.task('test', ['manage:js:vendor'], getTask('test', 'all'));
 
-// 5. Reports
-// ----------
-gulp.task('reports', ['reports:test', 'reports:lint']);
-gulp.task('reports:test', ['test']);
-gulp.task('reports:lint', () => {
-    let stream = require('merge-stream')();
+// // 5. Reports
+// // ----------
+// gulp.task('reports', ['reports:test', 'reports:lint']);
+// gulp.task('reports:test', ['test']);
+// gulp.task('reports:lint', () => {
+//     let stream = require('merge-stream')();
 
-    stream.add(getTask('lint', 'js:report')());
-    stream.add(getTask('lint', 'scss:report')());
+//     stream.add(getTask('lint', 'js:report')());
+//     stream.add(getTask('lint', 'scss:report')());
 
-    return stream;
-});
+//     return stream;
+// });
 
-// 6. Build
-// --------
-gulp.task('build', ['build:prod']);
+// // 6. Build
+// // --------
+// gulp.task('build', gulp.series('build:prod'));
 
-gulp.task('build:dev', ['manage'], () => {
-    const stream = gulp.src(gulp.data.get('paths.src.copy'))
-        .pipe(gulp.dest(gulp.data.get('paths.dev.base')));
+// gulp.task('build:dev', ['manage'], () => {
+//     const stream = gulp.src(gulp.data.get('paths.src.copy'))
+//         .pipe(gulp.dest(gulp.data.get('paths.dev.base')));
 
-    stream.on('end', () => {
-        return deleteEmpty.sync(gulp.data.get('paths.dev.base'))
-    });
+//     stream.on('end', () => {
+//         return deleteEmpty.sync(gulp.data.get('paths.dev.base'))
+//     });
 
-    return stream;
-});
+//     return stream;
+// });
 
-gulp.task('build:prod', ['test', 'lint:fail'], () => {
-    gulp.start('build:prod:unsafe');
-});
+// gulp.task('build:prod', gulp.parallel('test', 'lint:fail'), () => {
+//     gulp.start('build:prod:unsafe');
+// });
 
-gulp.task('build:prod:unsafe', () => {
-    // clean everything before start to make the production build
-    gulp.start('clean', () => {
-        gulp.start('minify', () => {
-            gulp.start('build:prod:helper', () => {});
-        });
-    });
-});
+// gulp.task('build:prod:unsafe', () => {
+//     // clean everything before start to make the production build
+//     gulp.start('clean', () => {
+//         gulp.start('minify', () => {
+//             gulp.start('build:prod:helper', () => {});
+//         });
+//     });
+// });
 
-gulp.task('build:prod:helper', () => {
-    let stream = merge();
+// gulp.task('build:prod:helper', () => {
+//     let stream = merge();
 
-    // first stream to copy everything but html, js and scss
-    stream.add(gulp.src(_.flatten([
-            gulp.data.get('paths.src.copy'),
-            gulp.data.get('paths.src.ignore.html')
-        ]))
-        .pipe(gulp.dest(gulp.data.get('paths.dest.base'))));
+//     // first stream to copy everything but html, js and scss
+//     stream.add(gulp.src(_.flatten([
+//             gulp.data.get('paths.src.copy'),
+//             gulp.data.get('paths.src.ignore.html')
+//         ]))
+//         .pipe(gulp.dest(gulp.data.get('paths.dest.base'))));
 
-    // clean dev dir - optional
-    stream.add(gulp.src(gulp.data.get('paths.dev.base'))
-        .pipe(plugins.clean()));
+//     // clean dev dir - optional
+//     stream.add(gulp.src(gulp.data.get('paths.dev.base'))
+//         .pipe(plugins.clean()));
 
-    // clean empty dir
-    stream.on('end', () => {
-        return deleteEmpty.sync(gulp.data.get('paths.dest.base'));
-    });
+//     // clean empty dir
+//     stream.on('end', () => {
+//         return deleteEmpty.sync(gulp.data.get('paths.dest.base'));
+//     });
 
-    return stream;
-})
+//     return stream;
+// })
 
 
-// 7. Serve
-// --------
-gulp.task('serve', ['serve:dev']);
+// // 7. Serve
+// // --------
+// gulp.task('serve', ['serve:dev']);
 
-gulp.task('serve:dev',['build:dev'], () => {
-    browserSync.init({
-        server: gulp.data.get('paths.dev.base'),
-        open: true
-    });
+// gulp.task('serve:dev',['build:dev'], () => {
+//     browserSync.init({
+//         server: gulp.data.get('paths.dev.base'),
+//         open: true
+//     });
 
-    gulp.watch(gulp.data.get('paths.src.allFiles.js'), ['manage:js']).on('change', browserSync.reload);
-    gulp.watch(gulp.data.get('paths.src.allFiles.scss'), ['manage:sass']).on('change', browserSync.reload);
-    gulp.watch(gulp.data.get('paths.src.allFiles.html'), () => {
-        return gulp.src(gulp.data.get('paths.src.copy'))
-            .pipe(gulp.dest(gulp.data.get('paths.dev.base')));
-    }).on('change', browserSync.reload);
-});
+//     gulp.watch(gulp.data.get('paths.src.allFiles.js'), ['manage:js']).on('change', browserSync.reload);
+//     gulp.watch(gulp.data.get('paths.src.allFiles.scss'), ['manage:sass']).on('change', browserSync.reload);
+//     gulp.watch(gulp.data.get('paths.src.allFiles.html'), () => {
+//         return gulp.src(gulp.data.get('paths.src.copy'))
+//             .pipe(gulp.dest(gulp.data.get('paths.dev.base')));
+//     }).on('change', browserSync.reload);
+// });
 
-gulp.task('serve:reports', ['reports'], () => {
-    browserSync.init({
-        server: {
-            baseDir: gulp.data.get('paths.coverage.base'),
-            directory: true
-        },
-        open: true
-    });
-});
+// gulp.task('serve:reports', ['reports'], () => {
+//     browserSync.init({
+//         server: {
+//             baseDir: gulp.data.get('paths.coverage.base'),
+//             directory: true
+//         },
+//         open: true
+//     });
+// });
 
 module.exports = gulp;

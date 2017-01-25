@@ -54,7 +54,7 @@ module.exports = options => {
                 .pipe(plugins.sourcemaps.write(gulp.data.get('paths.base')))
                 .pipe(gulp.dest(gulp.data.get('paths.dev.folder.assets.js')));
         },
-        'sass:browser': () => {
+        'sass:browser': done => {
             let stream = merge();
 
             glob('./src/assets/scss/*', (err, paths) => {
@@ -78,7 +78,9 @@ module.exports = options => {
                 }
             });
 
-            return stream.isEmpty() ? gulp.util.noob : stream;
+            console.log(stream.isEmpty())
+
+            return stream;
         }
     };
 };
