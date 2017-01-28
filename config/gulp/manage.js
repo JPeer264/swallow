@@ -39,7 +39,7 @@ module.exports = options => {
             try {
                 bowerFiles = mainBowerFiles();
             } catch (e) {
-                bowerFiles = '';
+                bowerFiles = '!';
             }
 
             return gulp.src(gulp.util._.flatten([
@@ -68,19 +68,20 @@ module.exports = options => {
                     let dirName = path.basename(dir);
                     let fileName = dirName.slice(8, dirName.length);
 
-                    stream.add(gulp.src([dir + '/**/*.scss', '!**/_*.scss'])
+                    const newStream = gulp.src([dir + '/**/*.scss', '!**/_*.scss'])
                         .pipe(plugins.sourcemaps.init())
                         .pipe(plugins.sass())
                         .pipe(plugins.postcss(postcssProcessors))
                         .pipe(plugins.concat(fileName + '.css'))
                         .pipe(plugins.sourcemaps.write(gulp.data.get('paths.base')))
-                        .pipe(gulp.dest(gulp.data.get('paths.dev.folder.assets.css'))));
+                        .pipe(gulp.dest(gulp.data.get('paths.dev.folder.assets.css')))
+
+                    stream.add(newStream);
                 }
+
+                done();
+                return stream.isEmpty() ? gulp.util.noop : stream;
             });
-
-            console.log(stream.isEmpty())
-
-            return stream;
         }
     };
 };
