@@ -160,6 +160,8 @@ gulp.task('serve:reports', gulp.series('reports', () => {
 
 gulp.task('serve', gulp.series('serve:dev'));
 
+// 8. Default
+// --------
 gulp.task('default', gulp.series('build:prod'));
 
 module.exports = gulp;
