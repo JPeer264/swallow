@@ -38,11 +38,15 @@ gulp.data.init(paths);
 /***********
  ** TASKS **
  ***********/
-// gulp.task('default', gulp.series('build:prod'));
-
 // 0. Helper
 // ---------
 gulp.task('clean', () => {
+    console.log(_.flatten([
+            gulp.data.get('paths.dev.base'),
+            gulp.data.get('paths.dest.base'),
+            gulp.data.get('paths.reports.base'),
+            './coverage'
+        ]))
     return gulp.src(_.flatten([
             gulp.data.get('paths.dev.base'),
             gulp.data.get('paths.dest.base'),
@@ -91,54 +95,42 @@ gulp.task('reports', gulp.parallel('reports:test', 'reports:lint'));
 
 // // 6. Build
 // // --------
-// gulp.task('build', gulp.series('build:prod'));
+// @todo add 'clean' before 'minify'
+gulp.task('build:prod:unsafe', gulp.series('minify', () => {
+    let stream = merge();
 
-// gulp.task('build:dev', ['manage'], () => {
-//     const stream = gulp.src(gulp.data.get('paths.src.copy'))
-//         .pipe(gulp.dest(gulp.data.get('paths.dev.base')));
+    // first stream to copy everything but html, js and scss
+    stream.add(gulp.src(_.flatten([
+            gulp.data.get('paths.src.copy'),
+            gulp.data.get('paths.src.ignore.html')
+        ]))
+        .pipe(gulp.dest(gulp.data.get('paths.dest.base'))));
 
-//     stream.on('end', () => {
-//         return deleteEmpty.sync(gulp.data.get('paths.dev.base'))
-//     });
+    // clean dev dir - optional
+    stream.add(gulp.src(gulp.data.get('paths.dev.base'))
+        .pipe(plugins.clean()));
 
-//     return stream;
-// });
+    // clean empty dir
+    stream.on('end', () => {
+        return deleteEmpty.sync(gulp.data.get('paths.dest.base'));
+    });
 
-// gulp.task('build:prod', gulp.parallel('test', 'lint:fail'), () => {
-//     gulp.start('build:prod:unsafe');
-// });
+    return stream;
+}));
 
-// gulp.task('build:prod:unsafe', () => {
-//     // clean everything before start to make the production build
-//     gulp.start('clean', () => {
-//         gulp.start('minify', () => {
-//             gulp.start('build:prod:helper', () => {});
-//         });
-//     });
-// });
+gulp.task('build:prod', gulp.series(gulp.parallel('test', 'lint:fail'), 'build:prod:unsafe'));
+gulp.task('build:dev', gulp.series('manage', () => {
+    const stream = gulp.src(gulp.data.get('paths.src.copy'))
+        .pipe(gulp.dest(gulp.data.get('paths.dev.base')));
 
-// gulp.task('build:prod:helper', () => {
-//     let stream = merge();
+    stream.on('end', () => {
+        return deleteEmpty.sync(gulp.data.get('paths.dev.base'))
+    });
 
-//     // first stream to copy everything but html, js and scss
-//     stream.add(gulp.src(_.flatten([
-//             gulp.data.get('paths.src.copy'),
-//             gulp.data.get('paths.src.ignore.html')
-//         ]))
-//         .pipe(gulp.dest(gulp.data.get('paths.dest.base'))));
+    return stream;
+}));
 
-//     // clean dev dir - optional
-//     stream.add(gulp.src(gulp.data.get('paths.dev.base'))
-//         .pipe(plugins.clean()));
-
-//     // clean empty dir
-//     stream.on('end', () => {
-//         return deleteEmpty.sync(gulp.data.get('paths.dest.base'));
-//     });
-
-//     return stream;
-// })
-
+gulp.task('build', gulp.series('build:prod'));
 
 // // 7. Serve
 // // --------
@@ -167,5 +159,7 @@ gulp.task('reports', gulp.parallel('reports:test', 'reports:lint'));
 //         open: true
 //     });
 // });
+
+gulp.task('default', gulp.series('build:prod'));
 
 module.exports = gulp;
