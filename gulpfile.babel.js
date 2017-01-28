@@ -63,14 +63,14 @@ gulp.task('manage', gulp.parallel('manage:sass', 'manage:js'));
 
 // // 2. Linting
 // // ----------
-// gulp.task('lint', gulp.parallel('lint:js', 'lint:scss', 'lint:html'));
-// gulp.task('lint:fail', gulp.parallel('lint:js:fail', 'lint:scss:fail', 'lint:html:fail'));
-// gulp.task('lint:js', getTask('lint', 'js'));
-// gulp.task('lint:js:fail', getTask('lint', 'js:fail'));
-// gulp.task('lint:scss', getTask('lint', 'scss'));
-// gulp.task('lint:scss:fail', getTask('lint', 'scss:fail'));
-// gulp.task('lint:html', getTask('lint', 'html'));
-// gulp.task('lint:html:fail', getTask('lint', 'html:fail'));
+gulp.task('lint:js:fail', getTask('lint', 'js:fail'));
+gulp.task('lint:js', getTask('lint', 'js'));
+gulp.task('lint:scss:fail', getTask('lint', 'scss:fail'));
+gulp.task('lint:scss', getTask('lint', 'scss'));
+gulp.task('lint:html:fail', getTask('lint', 'html:fail'));
+gulp.task('lint:html', getTask('lint', 'html'));
+gulp.task('lint', gulp.parallel('lint:js', 'lint:scss', 'lint:html'));
+gulp.task('lint:fail', gulp.parallel('lint:js:fail', 'lint:scss:fail', 'lint:html:fail'));
 
 // // 3. Minifying
 // // ------------
