@@ -1,4 +1,3 @@
-import _ from 'lodash';
 import basicScaffold from './basicScaffold';
 
 const vendor = basicScaffold('vendor', {
