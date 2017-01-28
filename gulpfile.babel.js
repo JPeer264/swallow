@@ -134,31 +134,31 @@ gulp.task('build', gulp.series('build:prod'));
 
 // 7. Serve
 // --------
-// gulp.task('serve:dev',['build:dev'], () => {
-//     browserSync.init({
-//         server: gulp.data.get('paths.dev.base'),
-//         open: true
-//     });
+gulp.task('serve:dev', gulp.series('build:dev', () => {
+    browserSync.init({
+        server: gulp.data.get('paths.dev.base'),
+        open: true
+    });
 
-//     gulp.watch(gulp.data.get('paths.src.allFiles.js'), ['manage:js']).on('change', browserSync.reload);
-//     gulp.watch(gulp.data.get('paths.src.allFiles.scss'), ['manage:sass']).on('change', browserSync.reload);
-//     gulp.watch(gulp.data.get('paths.src.allFiles.html'), () => {
-//         return gulp.src(gulp.data.get('paths.src.copy'))
-//             .pipe(gulp.dest(gulp.data.get('paths.dev.base')));
-//     }).on('change', browserSync.reload);
-// });
+    gulp.watch(gulp.data.get('paths.src.allFiles.js'), gulp.series('manage:js')).on('change', browserSync.reload);
+    gulp.watch(gulp.data.get('paths.src.allFiles.scss'), gulp.series('manage:sass')).on('change', browserSync.reload);
+    gulp.watch(gulp.data.get('paths.src.allFiles.html'), () => {
+        return gulp.src(gulp.data.get('paths.src.copy'))
+            .pipe(gulp.dest(gulp.data.get('paths.dev.base')));
+    }).on('change', browserSync.reload);
+}));
 
-// gulp.task('serve:reports', ['reports'], () => {
-//     browserSync.init({
-//         server: {
-//             baseDir: gulp.data.get('paths.coverage.base'),
-//             directory: true
-//         },
-//         open: true
-//     });
-// });
+gulp.task('serve:reports', gulp.series('reports', () => {
+    browserSync.init({
+        server: {
+            baseDir: gulp.data.get('paths.coverage.base'),
+            directory: true
+        },
+        open: true
+    });
+}));
 
-// gulp.task('serve', ['serve:dev']);
+gulp.task('serve', gulp.series('serve:dev'));
 
 gulp.task('default', gulp.series('build:prod'));
 
