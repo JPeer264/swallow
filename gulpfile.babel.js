@@ -81,7 +81,7 @@ gulp.task('minify', gulp.parallel('minify:css', 'minify:js', 'minify:html'));
 
 // // 4. Testing
 // // ----------
-// gulp.task('test', ['manage:js:vendor'], getTask('test', 'all'));
+gulp.task('test', gulp.series('manage:js:vendor', getTask('test', 'all')));
 
 // // 5. Reports
 // // ----------
