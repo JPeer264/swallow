@@ -60,6 +60,7 @@
     "main-bower-files": "^2.13.1",
     "merge-stream": "^1.0.1",
     "mocha": "^3.2.0",
-    "require-dir": "^0.3.1"
+    "require-dir": "^0.3.1",
+    "rollup-stream": "^1.19.0"
   }
 }
