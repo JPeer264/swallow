@@ -10,7 +10,7 @@ import _ from 'lodash';
 import gulp from 'gulp';
 import grunt from 'grunt';
 import merge from 'merge-stream';
-import paths from './config/paths.json';
+import paths from './config/paths';
 import deleteEmpty from 'delete-empty';
 
 const plugins = require('gulp-load-plugins')();

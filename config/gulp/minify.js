@@ -5,7 +5,7 @@ module.exports = options => {
 
     return {
         js: () => {
-            return gulp.src(gulp.data.get('paths.dev.files.js'))
+            return gulp.src(gulp.data.get('paths.dev.allFiles.js'))
                 .pipe(plugins.sourcemaps.init({loadMaps: true}))
                 .pipe(plugins.rcs({
                     exclude: '**/vendor.js'
@@ -15,10 +15,10 @@ module.exports = options => {
                     suffix: '.min'
                 }))
                 .pipe(plugins.sourcemaps.write(gulp.data.get('paths.base')))
-                .pipe(gulp.dest(gulp.data.get('paths.dest.folder.assets.js')));
+                .pipe(gulp.dest(gulp.data.get('paths.dest.base')));
         },
         css: () => {
-            return gulp.src(gulp.data.get('paths.dev.files.css'))
+            return gulp.src(gulp.data.get('paths.dev.allFiles.css'))
                 .pipe(plugins.sourcemaps.init({loadMaps: true}))
                 .pipe(plugins.rcs())
                 .pipe(plugins.cleanCss())
@@ -26,7 +26,7 @@ module.exports = options => {
                     suffix: '.min'
                 }))
                 .pipe(plugins.sourcemaps.write(gulp.data.get('paths.base')))
-                .pipe(gulp.dest(gulp.data.get('paths.dest.folder.assets.css')));
+                .pipe(gulp.dest(gulp.data.get('paths.dest.base')));
         },
         html: () => {
             return gulp.src(gulp.data.get('paths.src.allFiles.html'))

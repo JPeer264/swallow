@@ -44,7 +44,7 @@ module.exports = options => {
 
             return gulp.src(gulp.util._.flatten([
                     gulp.data.get('paths.src.files.couldBeVendor.js'),
-                    gulp.data.get('paths.vendor.js'),
+                    gulp.data.get('paths.vendor.allFiles.js'),
                     gulp.data.get('paths.src.ignore.min'),
                     bowerFiles
                 ]))
