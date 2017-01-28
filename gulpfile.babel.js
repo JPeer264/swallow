@@ -74,10 +74,10 @@ gulp.task('lint:fail', gulp.parallel('lint:js:fail', 'lint:scss:fail', 'lint:htm
 
 // // 3. Minifying
 // // ------------
-// gulp.task('minify', ['minify:css', 'minify:js', 'minify:html']);
-// gulp.task('minify:js', ['manage:js', 'minify:css'], getTask('minify', 'js'));
-// gulp.task('minify:css', ['manage:sass'], getTask('minify', 'css'));
-// gulp.task('minify:html', ['minify:css'], getTask('minify', 'html'));
+gulp.task('minify:css', gulp.series('manage:sass', getTask('minify', 'css')));
+gulp.task('minify:js', gulp.series(gulp.parallel('manage:js', 'minify:css'), getTask('minify', 'js')));
+gulp.task('minify:html', gulp.series('minify:css', getTask('minify', 'html')));
+gulp.task('minify', gulp.parallel('minify:css', 'minify:js', 'minify:html'));
 
 // // 4. Testing
 // // ----------
