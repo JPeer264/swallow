@@ -85,16 +85,9 @@ gulp.task('test', gulp.series('manage:js:vendor', getTask('test', 'all')));
 
 // // 5. Reports
 // // ----------
-// gulp.task('reports', ['reports:test', 'reports:lint']);
-// gulp.task('reports:test', ['test']);
-// gulp.task('reports:lint', () => {
-//     let stream = require('merge-stream')();
-
-//     stream.add(getTask('lint', 'js:report')());
-//     stream.add(getTask('lint', 'scss:report')());
-
-//     return stream;
-// });
+gulp.task('reports:test', gulp.parallel('test'));
+gulp.task('reports:lint', gulp.parallel(getTask('lint', 'js:report'), getTask('lint', 'scss:report')));
+gulp.task('reports', gulp.parallel('reports:test', 'reports:lint'));
 
 // // 6. Build
 // // --------
