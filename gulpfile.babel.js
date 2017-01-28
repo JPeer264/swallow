@@ -46,7 +46,9 @@ gulp.task('clean', () => {
             gulp.data.get('paths.dest.base'),
             gulp.data.get('paths.reports.base'),
             './coverage'
-        ]))
+        ]), {
+            allowEmpty: true
+        })
         .pipe(plugins.clean());
 });
 
@@ -89,8 +91,7 @@ gulp.task('reports', gulp.parallel('reports:test', 'reports:lint'));
 
 // 6. Build
 // --------
-// @todo add 'clean' before 'minify'
-gulp.task('build:prod:unsafe', gulp.series('minify', () => {
+gulp.task('build:prod:unsafe', gulp.series('clean', 'minify', () => {
     let stream = merge();
 
     // first stream to copy everything but html, js and scss
