@@ -41,12 +41,6 @@ gulp.data.init(paths);
 // 0. Helper
 // ---------
 gulp.task('clean', () => {
-    console.log(_.flatten([
-            gulp.data.get('paths.dev.base'),
-            gulp.data.get('paths.dest.base'),
-            gulp.data.get('paths.reports.base'),
-            './coverage'
-        ]))
     return gulp.src(_.flatten([
             gulp.data.get('paths.dev.base'),
             gulp.data.get('paths.dest.base'),
