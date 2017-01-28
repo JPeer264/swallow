@@ -65,8 +65,8 @@ gulp.task('manage:sass:browser', getTask('manage', 'sass:browser'));
 gulp.task('manage:sass', gulp.series('manage:sass:browser', getTask('manage', 'sass')));
 gulp.task('manage', gulp.parallel('manage:sass', 'manage:js'));
 
-// // 2. Linting
-// // ----------
+// 2. Linting
+// ----------
 gulp.task('lint:js:fail', getTask('lint', 'js:fail'));
 gulp.task('lint:js', getTask('lint', 'js'));
 gulp.task('lint:scss:fail', getTask('lint', 'scss:fail'));
@@ -76,25 +76,25 @@ gulp.task('lint:html', getTask('lint', 'html'));
 gulp.task('lint', gulp.parallel('lint:js', 'lint:scss', 'lint:html'));
 gulp.task('lint:fail', gulp.parallel('lint:js:fail', 'lint:scss:fail', 'lint:html:fail'));
 
-// // 3. Minifying
-// // ------------
+// 3. Minifying
+// ------------
 gulp.task('minify:css', gulp.series('manage:sass', getTask('minify', 'css')));
 gulp.task('minify:js', gulp.series(gulp.parallel('manage:js', 'minify:css'), getTask('minify', 'js')));
 gulp.task('minify:html', gulp.series('minify:css', getTask('minify', 'html')));
 gulp.task('minify', gulp.parallel('minify:css', 'minify:js', 'minify:html'));
 
-// // 4. Testing
-// // ----------
+// 4. Testing
+// ----------
 gulp.task('test', gulp.series('manage:js:vendor', getTask('test', 'all')));
 
-// // 5. Reports
-// // ----------
+// 5. Reports
+// ----------
 gulp.task('reports:test', gulp.parallel('test'));
 gulp.task('reports:lint', gulp.parallel(getTask('lint', 'js:report'), getTask('lint', 'scss:report')));
 gulp.task('reports', gulp.parallel('reports:test', 'reports:lint'));
 
-// // 6. Build
-// // --------
+// 6. Build
+// --------
 // @todo add 'clean' before 'minify'
 gulp.task('build:prod:unsafe', gulp.series('minify', () => {
     let stream = merge();
@@ -132,10 +132,8 @@ gulp.task('build:dev', gulp.series('manage', () => {
 
 gulp.task('build', gulp.series('build:prod'));
 
-// // 7. Serve
-// // --------
-// gulp.task('serve', ['serve:dev']);
-
+// 7. Serve
+// --------
 // gulp.task('serve:dev',['build:dev'], () => {
 //     browserSync.init({
 //         server: gulp.data.get('paths.dev.base'),
@@ -159,6 +157,8 @@ gulp.task('build', gulp.series('build:prod'));
 //         open: true
 //     });
 // });
+
+// gulp.task('serve', ['serve:dev']);
 
 gulp.task('default', gulp.series('build:prod'));
 
