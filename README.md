@@ -13,9 +13,9 @@
 
 > you must have installed Node v4+ and NPM v3+
 
-First, make sure you have instlled Gulp globally
+First, make sure you have installed `gulp-cli` globally
 ```sh
-$ npm i -g gulp
+$ npm i -g gulp-cli
 ```
 
 Secondly, install the dependencies
