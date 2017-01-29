@@ -1,5 +1,7 @@
+const gulp = require('../gulpfile.babel.js');
+
 export default {
-    entry: './src/assets/js/main.js',
+    entry: gulp.data.get('paths.src.files.jsEntry'),
     sourceMap: true,
-    // moduleName: gulp.data.get()
-}
+    format: 'es'
+};

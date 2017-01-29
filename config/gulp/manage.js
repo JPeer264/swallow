@@ -1,6 +1,9 @@
 import path from 'path';
 import glob from 'glob';
 import merge from 'merge-stream';
+import source from 'vinyl-source-stream';
+import buffer from 'vinyl-buffer';
+import rollup from 'rollup-stream';
 import autoprefixer from 'autoprefixer';
 import mainBowerFiles from 'main-bower-files';
 
@@ -23,12 +26,13 @@ module.exports = options => {
                 .pipe(gulp.dest(gulp.data.get('paths.dev.folder.assets.css')));
         },
         'js:own': () => {
-            return gulp.src(gulp.util._.flatten(gulp.data.get('paths.src.files.js')))
-                .pipe(plugins.sourcemaps.init())
+            return rollup(gulp.data.get('paths.config.rollup'))
+                .pipe(source(gulp.data.get('names.files.jsEntry'), gulp.data.get('paths.src.folder.assets.js')))
+                .pipe(buffer())
+                .pipe(plugins.sourcemaps.init({ loadMaps: true }))
                 .pipe(plugins.babel({
                     presets: ['es2015']
                 }))
-                .pipe(plugins.concat('main.js'))
                 .pipe(plugins.sourcemaps.write(gulp.data.get('paths.base')))
                 .pipe(gulp.dest(gulp.data.get('paths.dev.folder.assets.js')));
         },
