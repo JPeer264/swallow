@@ -55,7 +55,7 @@ $ gulp clean
 
 - [Browser stylesheets](#browser-stylesheets)
 - [Production ready code](#production-ready-code)
-- [ES2015 support](#es2015-support)
+- [RollupJS (ES2015)](#rollupjs-es2015)
 - [Testing](#testing)
 - [Linting](#linting)
 - [Live coding](#live-conding)
@@ -91,9 +91,13 @@ Output for development:
 
 Your code gets automatically optimized when triggering `gulp build:prod`. This includes minified files, selectors, autoprefixer and much more.
 
-### ES2015 support
+### RollupJS (ES2015)
+
+[RollupJS](http://rollupjs.org/) is used to bundle all necessary js files. The entry point is defined in `./config/paths/paths` in the object `src.files.jsEntry`. The name of the entry point is specified in `./config/paths/names` in the object `files.jsEntry`.
 
 Write your code with ES2015 syntax.
+
+Look [here](https://github.com/JPeer264/swallow/blob/master/src/assets/js/main.js) into `./src/assets/js/main.js`.
 
 ### Testing
 
