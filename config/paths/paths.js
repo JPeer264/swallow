@@ -57,6 +57,7 @@ const src = basicScaffold('src', {
             '<%= paths.src.ignore._js %>',
             '<%= paths.src.ignore.tests %>'
         ],
+        jsentry: '<%= paths.src.folder.assets.js %>/main.js',
         assets: {
             js: [
                 '<%= paths.src.folder.assets.jss %>/*.js',
@@ -99,6 +100,7 @@ export default {
         scsslint: '<%= paths.config.base %>/scsslint.yml',
         htmllint: '<%= paths.config.base %>/.htmllintrc',
         eslint: '<%= paths.config.base %>/.eslintrc',
-        karma: '<%= paths.config.base %>/karma.js'
+        karma: '<%= paths.config.base %>/karma.js',
+        rollup: '<%= paths.config.base %>/rollup.config.js'
     }
 };
