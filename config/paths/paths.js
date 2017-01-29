@@ -57,7 +57,7 @@ const src = basicScaffold('src', {
             '<%= paths.src.ignore._js %>',
             '<%= paths.src.ignore.tests %>'
         ],
-        jsentry: '<%= paths.src.folder.assets.js %>/main.js',
+        jsEntry: '<%= paths.src.folder.assets.js %>/<%= names.files.jsEntry %>',
         assets: {
             js: [
                 '<%= paths.src.folder.assets.jss %>/*.js',
