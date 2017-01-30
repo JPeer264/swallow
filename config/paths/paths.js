@@ -100,7 +100,6 @@ export default {
         scsslint: '<%= paths.config.base %>/scsslint.yml',
         htmllint: '<%= paths.config.base %>/.htmllintrc',
         eslint: '<%= paths.config.base %>/.eslintrc',
-        karma: '<%= paths.config.base %>/karma.js',
-        rollup: '<%= paths.config.base %>/rollup.config.js'
+        karma: '<%= paths.config.base %>/karma.js'
     }
 };
