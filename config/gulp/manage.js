@@ -3,6 +3,8 @@ import glob from 'glob';
 import merge from 'merge-stream';
 import autoprefixer from 'autoprefixer';
 import mainBowerFiles from 'main-bower-files';
+import webpack from 'webpack';
+
 
 module.exports = options => {
     const gulp    = options.gulp;
@@ -11,6 +13,8 @@ module.exports = options => {
     const postcssProcessors = [
         autoprefixer({ browsers: ['last 2 versions'] })
     ];
+
+    const webpackConfig = require(gulp.data.get('paths.config.webpack'));
 
     return {
         sass: () => {
@@ -22,15 +26,16 @@ module.exports = options => {
                 .pipe(plugins.sourcemaps.write(gulp.data.get('paths.base')))
                 .pipe(gulp.dest(gulp.data.get('paths.dev.folder.assets.css')));
         },
-        'js:own': () => {
-            // @todo add module bundler
-            // return rollup(gulp.data.get(''))
-            //     .pipe(plugins.sourcemaps.init({ loadMaps: true }))
-            //     .pipe(plugins.babel({
-            //         presets: ['es2015']
-            //     }))
-            //     .pipe(plugins.sourcemaps.write(gulp.data.get('paths.base')))
-            //     .pipe(gulp.dest(gulp.data.get('paths.dev.folder.assets.js')));
+        'js:webpack': cb => {
+            return webpack(webpackConfig, (err, stats) => {
+                if(err) throw new gulp.util.PluginError("webpack", err);
+
+                gulp.util.log("[webpack]", stats.toString({
+                    // output options
+                }));
+
+                cb();
+            });
         },
         'js:vendor': () => {
             let bowerFiles;

@@ -35,6 +35,8 @@ gulp.util._ = _;
 gulp.data   = grunt.config;
 gulp.data.init(paths);
 
+module.exports = gulp;
+
 /***********
  ** TASKS **
  ***********/
@@ -55,7 +57,7 @@ gulp.task('clean', () => {
 // 1. Managing
 // -----------
 gulp.task('manage:js:vendor', getTask('manage', 'js:vendor'));
-gulp.task('manage:js:own', getTask('manage', 'js:own'));
+gulp.task('manage:js:own', getTask('manage', 'js:webpack'));
 gulp.task('manage:js', gulp.parallel('manage:js:own', 'manage:js:vendor'));
 gulp.task('manage:sass:browser', getTask('manage', 'sass:browser'));
 gulp.task('manage:sass', gulp.series('manage:sass:browser', getTask('manage', 'sass')));
@@ -158,5 +160,3 @@ gulp.task('serve', gulp.series('serve:dev'));
 // 8. Default
 // --------
 gulp.task('default', gulp.series('build:prod'));
-
-module.exports = gulp;

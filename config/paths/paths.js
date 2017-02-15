@@ -82,7 +82,7 @@ const src = basicScaffold('src', {
 });
 
 export default {
-    base: '.',
+    base: process.cwd(),
     dev: basicScaffold('dev'),
     vendor,
     src,
@@ -100,6 +100,7 @@ export default {
         scsslint: '<%= paths.config.base %>/scsslint.yml',
         htmllint: '<%= paths.config.base %>/.htmllintrc',
         eslint: '<%= paths.config.base %>/.eslintrc',
-        karma: '<%= paths.config.base %>/karma.js'
+        karma: '<%= paths.config.base %>/karma.js',
+        webpack: '<%= paths.config.base %>/webpack.config.js'
     }
 };
