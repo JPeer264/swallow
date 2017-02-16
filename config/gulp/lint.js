@@ -1,7 +1,7 @@
 import fs from 'fs-extra';
 
 module.exports = options => {
-    const gulp    = options.gulp;
+    const { gulp } = options;
 
     // lints scss files but does not fail
     const scss = () => {

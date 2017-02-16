@@ -7,8 +7,8 @@ import webpack from 'webpack';
 
 
 module.exports = options => {
-    const gulp    = options.gulp;
-    const paths   = gulp.data.data;
+    const { gulp } = options;
+    const paths    = gulp.data.data;
     const postcssProcessors = [
         autoprefixer({ browsers: ['last 2 versions'] })
     ];

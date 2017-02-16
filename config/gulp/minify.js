@@ -1,5 +1,5 @@
 module.exports = options => {
-    const gulp    = options.gulp;
+    const { gulp } = options;
 
     return {
         js: () => {

@@ -1,6 +1,6 @@
 module.exports = options => {
-    const gulp    = options.gulp;
-    const Server  = require('karma').Server;
+    const { gulp } = options;
+    const Server   = require('karma').Server;
 
     return {
         all: done => {
