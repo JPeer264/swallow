@@ -8,8 +8,7 @@ import webpack from 'webpack';
 
 module.exports = options => {
     const gulp    = options.gulp;
-    const paths   = options.paths;
-    const plugins = options.plugins;
+    const paths   = gulp.data.data;
     const postcssProcessors = [
         autoprefixer({ browsers: ['last 2 versions'] })
     ];
@@ -19,11 +18,11 @@ module.exports = options => {
     return {
         sass: () => {
             return gulp.src(gulp.data.get('paths.src.files.scss'))
-                .pipe(plugins.sourcemaps.init())
-                .pipe(plugins.sass())
-                .pipe(plugins.postcss(postcssProcessors))
-                .pipe(plugins.concat('global.css'))
-                .pipe(plugins.sourcemaps.write(gulp.data.get('paths.base')))
+                .pipe(gulp.plugins.sourcemaps.init())
+                .pipe(gulp.plugins.sass())
+                .pipe(gulp.plugins.postcss(postcssProcessors))
+                .pipe(gulp.plugins.concat('global.css'))
+                .pipe(gulp.plugins.sourcemaps.write(gulp.data.get('paths.base')))
                 .pipe(gulp.dest(gulp.data.get('paths.dev.folder.assets.css')));
         },
         'js:webpack': cb => {
@@ -53,10 +52,10 @@ module.exports = options => {
                     gulp.data.get('paths.src.ignore.min'),
                     bowerFiles
                 ]))
-                .pipe(plugins.filter('**/*.js'))
-                .pipe(plugins.sourcemaps.init())
-                .pipe(plugins.concat('vendor.js'))
-                .pipe(plugins.sourcemaps.write(gulp.data.get('paths.base')))
+                .pipe(gulp.plugins.filter('**/*.js'))
+                .pipe(gulp.plugins.sourcemaps.init())
+                .pipe(gulp.plugins.concat('vendor.js'))
+                .pipe(gulp.plugins.sourcemaps.write(gulp.data.get('paths.base')))
                 .pipe(gulp.dest(gulp.data.get('paths.dev.folder.assets.js')));
         },
         'sass:browser': done => {
@@ -74,11 +73,11 @@ module.exports = options => {
                     let fileName = dirName.slice(8, dirName.length);
 
                     const newStream = gulp.src([dir + '/**/*.scss', '!**/_*.scss'])
-                        .pipe(plugins.sourcemaps.init())
-                        .pipe(plugins.sass())
-                        .pipe(plugins.postcss(postcssProcessors))
-                        .pipe(plugins.concat(fileName + '.css'))
-                        .pipe(plugins.sourcemaps.write(gulp.data.get('paths.base')))
+                        .pipe(gulp.plugins.sourcemaps.init())
+                        .pipe(gulp.plugins.sass())
+                        .pipe(gulp.plugins.postcss(postcssProcessors))
+                        .pipe(gulp.plugins.concat(fileName + '.css'))
+                        .pipe(gulp.plugins.sourcemaps.write(gulp.data.get('paths.base')))
                         .pipe(gulp.dest(gulp.data.get('paths.dev.folder.assets.css')))
 
                     stream.add(newStream);

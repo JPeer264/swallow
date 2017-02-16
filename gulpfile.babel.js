@@ -13,7 +13,8 @@ import merge from 'merge-stream';
 import paths from './config/paths';
 import deleteEmpty from 'delete-empty';
 
-const plugins = require('gulp-load-plugins')();
+gulp.plugins = require('gulp-load-plugins')();
+
 const browserSync = require('browser-sync').create();
 
 /**
@@ -25,7 +26,7 @@ const browserSync = require('browser-sync').create();
  * @return {Stream}
  */
 const getTask = (mainTask, subTask) => {
-    const task = require('./config/gulp/' + mainTask)({gulp, plugins, paths});
+    const task = require('./config/gulp/' + mainTask)({ gulp });
 
     return task[subTask];
 };
@@ -51,7 +52,7 @@ gulp.task('clean', () => {
         ]), {
             allowEmpty: true
         })
-        .pipe(plugins.clean());
+        .pipe(gulp.plugins.clean());
 });
 
 // 1. Managing
@@ -105,7 +106,7 @@ gulp.task('build:prod:unsafe', gulp.series('clean', 'minify', () => {
 
     // clean dev dir - optional
     stream.add(gulp.src(gulp.data.get('paths.dev.base'))
-        .pipe(plugins.clean()));
+        .pipe(gulp.plugins.clean()));
 
     // clean empty dir
     stream.on('end', () => {

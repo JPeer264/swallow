@@ -1,36 +1,34 @@
 module.exports = options => {
     const gulp    = options.gulp;
-    const paths   = options.paths;
-    const plugins = options.plugins;
 
     return {
         js: () => {
             return gulp.src(gulp.data.get('paths.dev.allFiles.js'))
-                .pipe(plugins.sourcemaps.init({loadMaps: true}))
-                .pipe(plugins.rcs({
+                .pipe(gulp.plugins.sourcemaps.init({loadMaps: true}))
+                .pipe(gulp.plugins.rcs({
                     exclude: '**/vendor.js'
                 }))
-                .pipe(plugins.uglify())
-                .pipe(plugins.rename({
+                .pipe(gulp.plugins.uglify())
+                .pipe(gulp.plugins.rename({
                     suffix: '.min'
                 }))
-                .pipe(plugins.sourcemaps.write(gulp.data.get('paths.base')))
+                .pipe(gulp.plugins.sourcemaps.write(gulp.data.get('paths.base')))
                 .pipe(gulp.dest(gulp.data.get('paths.dest.base')));
         },
         css: () => {
             return gulp.src(gulp.data.get('paths.dev.allFiles.css'))
-                .pipe(plugins.sourcemaps.init({loadMaps: true}))
-                .pipe(plugins.rcs())
-                .pipe(plugins.cleanCss())
-                .pipe(plugins.rename({
+                .pipe(gulp.plugins.sourcemaps.init({loadMaps: true}))
+                .pipe(gulp.plugins.rcs())
+                .pipe(gulp.plugins.cleanCss())
+                .pipe(gulp.plugins.rename({
                     suffix: '.min'
                 }))
-                .pipe(plugins.sourcemaps.write(gulp.data.get('paths.base')))
+                .pipe(gulp.plugins.sourcemaps.write(gulp.data.get('paths.base')))
                 .pipe(gulp.dest(gulp.data.get('paths.dest.base')));
         },
         html: () => {
             return gulp.src(gulp.data.get('paths.src.allFiles.html'))
-                .pipe(plugins.cdnify({
+                .pipe(gulp.plugins.cdnify({
                     rewriter: url => {
                         var arr = url.split('.');
 
@@ -41,8 +39,8 @@ module.exports = options => {
                         return arr.join('.');
                     }
                 }))
-                .pipe(plugins.rcs())
-                .pipe(plugins.htmlmin({collapseWhitespace: true}))
+                .pipe(gulp.plugins.rcs())
+                .pipe(gulp.plugins.htmlmin({collapseWhitespace: true}))
                 .pipe(gulp.dest(gulp.data.get('paths.dest.base')));
         }
     };

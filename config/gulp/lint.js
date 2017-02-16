@@ -2,21 +2,19 @@ import fs from 'fs-extra';
 
 module.exports = options => {
     const gulp    = options.gulp;
-    const paths   = options.paths;
-    const plugins = options.plugins;
 
     // lints scss files but does not fail
     const scss = () => {
         return gulp.src(gulp.data.get('paths.src.allFiles.scss'))
-            .pipe(plugins.sassLint({
+            .pipe(gulp.plugins.sassLint({
                 configFile: gulp.data.get('paths.config.scsslint')
             }))
-            .pipe(plugins.sassLint.format());
+            .pipe(gulp.plugins.sassLint.format());
     };
 
     // lints scss files and fails
     const scssFail = () => {
-        return scss().pipe(plugins.sassLint.failOnError());
+        return scss().pipe(gulp.plugins.sassLint.failOnError());
     };
 
     // lints scss files and create a report
@@ -27,13 +25,13 @@ module.exports = options => {
 
         const fileStream = fs.createWriteStream(filePath);
         const stream = gulp.src(gulp.data.get('paths.src.allFiles.scss'))
-            .pipe(plugins.sassLint({
+            .pipe(gulp.plugins.sassLint({
                 configFile: gulp.data.get('paths.config.scsslint'),
                 options: {
                     formatter: 'checkstyle'
                 }
             }))
-            .pipe(plugins.sassLint.format(fileStream));
+            .pipe(gulp.plugins.sassLint.format(fileStream));
 
         stream.on('finish', function() {
             fileStream.end();
@@ -45,15 +43,15 @@ module.exports = options => {
     // lints js files but does not fail
     const js = () => {
         return gulp.src(gulp.util._.flatten(gulp.data.get('paths.src.files.js')))
-            .pipe(plugins.eslint({
+            .pipe(gulp.plugins.eslint({
                 configFile: gulp.data.get('paths.config.eslint')
             }))
-            .pipe(plugins.eslint.format());
+            .pipe(gulp.plugins.eslint.format());
     };
 
     // lints js files and fails
     const jsFail = () => {
-        return js().pipe(plugins.eslint.failOnError());
+        return js().pipe(gulp.plugins.eslint.failOnError());
     };
 
     // lints js files and create a report
@@ -64,10 +62,10 @@ module.exports = options => {
 
         const fileStream = fs.createWriteStream(filePath);
         const stream = gulp.src(gulp.util._.flatten(gulp.data.get('paths.src.files.js')))
-            .pipe(plugins.eslint({
+            .pipe(gulp.plugins.eslint({
                 configFile: gulp.data.get('paths.config.eslint')
             }))
-            .pipe(plugins.eslint.format('checkstyle', fileStream));
+            .pipe(gulp.plugins.eslint.format('checkstyle', fileStream));
 
         stream.on('finish', () => {
             fileStream.end();
@@ -79,7 +77,7 @@ module.exports = options => {
     // lints html files but does not fail
     const html = () => {
         return gulp.src(gulp.data.get('paths.src.allFiles.html'))
-            .pipe(plugins.htmllint({
+            .pipe(gulp.plugins.htmllint({
                 config: gulp.data.get('paths.config.htmllint')
             }));
     };
@@ -88,7 +86,7 @@ module.exports = options => {
     const htmlFail = () => {
         // @todo does not really fail
         return gulp.src(gulp.data.get('paths.src.allFiles.html'))
-            .pipe(plugins.htmllint({
+            .pipe(gulp.plugins.htmllint({
                 failOnError: true,
                 config: gulp.data.get('paths.config.htmllint')
             }));
