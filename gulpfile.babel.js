@@ -138,12 +138,13 @@ gulp.task('serve:dev', gulp.series('build:dev', () => {
         open: true
     });
 
-    gulp.watch(gulp.data.get('paths.src.allFiles.js'), gulp.series('manage:js')).on('change', browserSync.reload);
-    gulp.watch(gulp.data.get('paths.src.allFiles.scss'), gulp.series('manage:sass')).on('change', browserSync.reload);
-    gulp.watch(gulp.data.get('paths.src.allFiles.html'), () => {
+    gulp.plugins.watch(gulp.data.get('paths.src.allFiles.js'), gulp.series('manage:js', browserSync.reload))
+    gulp.plugins.watch(gulp.data.get('paths.src.allFiles.scss'), gulp.series('manage:sass', browserSync.reload))
+    gulp.plugins.watch(gulp.data.get('paths.src.allFiles.copy'), () => {
         return gulp.src(gulp.data.get('paths.src.copy'))
-            .pipe(gulp.dest(gulp.data.get('paths.dev.base')));
-    }).on('change', browserSync.reload);
+            .pipe(gulp.dest(gulp.data.get('paths.dev.base')))
+            .pipe(browserSync.reload);
+    })
 }));
 
 gulp.task('serve:reports', gulp.series('reports', () => {
