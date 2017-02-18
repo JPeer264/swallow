@@ -4,12 +4,13 @@ module.exports = options => {
     const { gulp } = options;
 
     // lints scss files but does not fail
-    const scss = () => {
+    const scss = (options = {}, fileStream) => {
         return gulp.src(gulp.data.get('paths.src.allFiles.scss'))
             .pipe(gulp.plugins.sassLint({
-                configFile: gulp.data.get('paths.config.scsslint')
+                configFile: gulp.data.get('paths.config.scsslint'),
+                options
             }))
-            .pipe(gulp.plugins.sassLint.format());
+            .pipe(gulp.plugins.sassLint.format(fileStream));
     };
 
     // lints scss files and fails
@@ -24,14 +25,10 @@ module.exports = options => {
         fs.ensureFileSync(filePath);
 
         const fileStream = fs.createWriteStream(filePath);
-        const stream = gulp.src(gulp.data.get('paths.src.allFiles.scss'))
-            .pipe(gulp.plugins.sassLint({
-                configFile: gulp.data.get('paths.config.scsslint'),
-                options: {
-                    formatter: 'checkstyle'
-                }
-            }))
-            .pipe(gulp.plugins.sassLint.format(fileStream));
+        const stream = scss({
+                formatter: 'checkstyle',
+                options
+            }, fileStream);
 
         stream.on('finish', function() {
             fileStream.end();
@@ -41,12 +38,12 @@ module.exports = options => {
     };
 
     // lints js files but does not fail
-    const js = () => {
+    const js = (options = {}, format, fileStream) => {
         return gulp.src(gulp.util._.flatten(gulp.data.get('paths.src.files.js')))
             .pipe(gulp.plugins.eslint({
                 configFile: gulp.data.get('paths.config.eslint')
             }))
-            .pipe(gulp.plugins.eslint.format());
+            .pipe(gulp.plugins.eslint.format(format, fileStream));
     };
 
     // lints js files and fails
@@ -61,11 +58,9 @@ module.exports = options => {
         fs.ensureFileSync(filePath);
 
         const fileStream = fs.createWriteStream(filePath);
-        const stream = gulp.src(gulp.util._.flatten(gulp.data.get('paths.src.files.js')))
-            .pipe(gulp.plugins.eslint({
+        const stream = js({
                 configFile: gulp.data.get('paths.config.eslint')
-            }))
-            .pipe(gulp.plugins.eslint.format('checkstyle', fileStream));
+            }, 'checkstyle', fileStream);
 
         stream.on('finish', () => {
             fileStream.end();
@@ -75,9 +70,10 @@ module.exports = options => {
     };
 
     // lints html files but does not fail
-    const html = () => {
+    const html = (failOnError = false) => {
         return gulp.src(gulp.data.get('paths.src.allFiles.html'))
             .pipe(gulp.plugins.htmllint({
+                failOnError,
                 config: gulp.data.get('paths.config.htmllint')
             }));
     };
@@ -85,11 +81,7 @@ module.exports = options => {
     // lints html files and fails
     const htmlFail = () => {
         // @todo does not really fail
-        return gulp.src(gulp.data.get('paths.src.allFiles.html'))
-            .pipe(gulp.plugins.htmllint({
-                failOnError: true,
-                config: gulp.data.get('paths.config.htmllint')
-            }));
+        return html(true);
     };
 
     return {
