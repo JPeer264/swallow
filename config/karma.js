@@ -13,12 +13,8 @@ module.exports = config => {
                 presets: ['es2015'],
                 sourceMap: 'inline'
             },
-            filename: file => {
-                return file.originalPath.replace(/\.js$/, '.es5.js');
-            },
-            sourceFileName: file => {
-                return file.originalPath;
-            }
+            filename: file => file.originalPath.replace(/\.js$/, '.es5.js'),
+            sourceFileName: file => file.originalPath
         },
         files: [
             'dev/assets/js/vendor.js',
@@ -43,19 +39,15 @@ module.exports = config => {
             reporters: [{
                 type : 'html',
                 dir : gulp.data.get('paths.coverage.base'),
-                subdir: browser => {
-                    // normalization process to keep a consistent browser name across different
-                    // https://github.com/karma-runner/karma-coverage/blob/master/docs/configuration.md#subdir
-                    return browser.toLowerCase().split(/[ /-]/)[0];
-                }
+                // normalization process to keep a consistent browser name across different
+                // https://github.com/karma-runner/karma-coverage/blob/master/docs/configuration.md#subdir
+                subdir: browser => browser.toLowerCase().split(/[ /-]/)[0]
             }, {
                 type : 'cobertura',
                 dir : gulp.data.get('paths.reports.base'),
-                subdir: browser => {
-                    // normalization process to keep a consistent browser name across different
-                    // https://github.com/karma-runner/karma-coverage/blob/master/docs/configuration.md#subdir
-                    return browser.toLowerCase().split(/[ /-]/)[0];
-                }
+                // normalization process to keep a consistent browser name across different
+                // https://github.com/karma-runner/karma-coverage/blob/master/docs/configuration.md#subdir
+                subdir: browser => browser.toLowerCase().split(/[ /-]/)[0]
             }]
         }
     });
