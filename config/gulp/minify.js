@@ -1,10 +1,18 @@
+import merge from 'merge-stream';
+import webpack from 'webpack';
+
 module.exports = options => {
     const { gulp } = options;
+    const webpackConfig = require(gulp.data.get('paths.config.webpack'));
+
+    webpackConfig.plugins = webpackConfig.plugins || [];
 
     return {
-        js: () => {
-            return gulp.src(gulp.data.get('paths.dev.allFiles.js'))
-                .pipe(gulp.plugins.sourcemaps.init({loadMaps: true}))
+        js: cb => {
+            let stream = merge();
+
+            // minify
+            stream.add(gulp.src(gulp.data.get('paths.dev.allFiles.js'))
                 .pipe(gulp.plugins.rcs({
                     exclude: '**/vendor.js'
                 }))
@@ -12,19 +20,32 @@ module.exports = options => {
                 .pipe(gulp.plugins.rename({
                     suffix: '.min'
                 }))
-                .pipe(gulp.plugins.sourcemaps.write(gulp.data.get('paths.base')))
-                .pipe(gulp.dest(gulp.data.get('paths.dest.base')));
+                .pipe(gulp.dest(gulp.data.get('paths.dest.base'))));
+
+            // gzip
+            stream.add(gulp.src(gulp.data.get('paths.dev.allFiles.js'))
+                .pipe(gulp.plugins.gzip({ extension: 'gzip' }))
+                .pipe(gulp.dest(gulp.data.get('paths.dest.base'))));
+
+            return stream;
         },
         css: () => {
-            return gulp.src(gulp.data.get('paths.dev.allFiles.css'))
-                .pipe(gulp.plugins.sourcemaps.init({loadMaps: true}))
+            let stream = merge();
+
+            // minfy
+            stream.add(gulp.src(gulp.data.get('paths.dev.allFiles.css'))
                 .pipe(gulp.plugins.rcs())
                 .pipe(gulp.plugins.cleanCss())
                 .pipe(gulp.plugins.rename({
                     suffix: '.min'
                 }))
-                .pipe(gulp.plugins.sourcemaps.write(gulp.data.get('paths.base')))
-                .pipe(gulp.dest(gulp.data.get('paths.dest.base')));
+                .pipe(gulp.dest(gulp.data.get('paths.dest.base'))));
+
+            stream.add(gulp.src(gulp.data.get('paths.dev.allFiles.css'))
+                .pipe(gulp.plugins.gzip({ extension: 'gzip' }))
+                .pipe(gulp.dest(gulp.data.get('paths.dest.base'))))
+
+            return stream;
         },
         html: () => {
             return gulp.src(gulp.data.get('paths.src.allFiles.html'))

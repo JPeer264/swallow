@@ -1,9 +1,9 @@
 import path from 'path';
 import glob from 'glob';
 import merge from 'merge-stream';
+import webpack from 'webpack';
 import autoprefixer from 'autoprefixer';
 import mainBowerFiles from 'main-bower-files';
-import webpack from 'webpack';
 
 
 module.exports = options => {
