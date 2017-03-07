@@ -15,5 +15,6 @@ module.exports = {
                 presets: ['env']
             }
         }]
-    }
+    },
+    devtool: '#source-map'
 };
