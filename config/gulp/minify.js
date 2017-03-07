@@ -11,20 +11,20 @@ module.exports = options => {
         js: cb => {
             let stream = merge();
 
-            // minify
-            stream.add(gulp.src(gulp.data.get('paths.dev.allFiles.js'))
+            const baseStream = gulp.src(gulp.data.get('paths.dev.allFiles.js'))
                 .pipe(gulp.plugins.rcs({
                     exclude: '**/vendor.js'
                 }))
                 .pipe(gulp.plugins.uglify())
                 .pipe(gulp.plugins.rename({
                     suffix: '.min'
-                }))
-                .pipe(gulp.dest(gulp.data.get('paths.dest.base'))));
+                }));
+
+            // minify
+            stream.add(baseStream.pipe(gulp.dest(gulp.data.get('paths.dest.base'))));
 
             // gzip
-            stream.add(gulp.src(gulp.data.get('paths.dev.allFiles.js'))
-                .pipe(gulp.plugins.gzip({ extension: 'gzip' }))
+            stream.add(baseStream.pipe(gulp.plugins.gzip({ extension: 'gzip' }))
                 .pipe(gulp.dest(gulp.data.get('paths.dest.base'))));
 
             return stream;
@@ -41,7 +41,8 @@ module.exports = options => {
                 }))
                 .pipe(gulp.dest(gulp.data.get('paths.dest.base'))));
 
-            stream.add(gulp.src(gulp.data.get('paths.dev.allFiles.css'))
+            // gzip
+            stream.add(gulp.src(gulp.data.get('paths.dest.allFiles.css'))
                 .pipe(gulp.plugins.gzip({ extension: 'gzip' }))
                 .pipe(gulp.dest(gulp.data.get('paths.dest.base'))))
 
