@@ -22,7 +22,7 @@ module.exports = options => {
                 .pipe(gulp.plugins.sass())
                 .pipe(gulp.plugins.postcss(postcssProcessors))
                 .pipe(gulp.plugins.concat('global.css'))
-                .pipe(gulp.plugins.sourcemaps.write(gulp.data.get('paths.base')))
+                .pipe(gulp.plugins.sourcemaps.write('.'))
                 .pipe(gulp.dest(gulp.data.get('paths.dev.folder.assets.css')));
         },
         'js:webpack': cb => {
@@ -55,7 +55,7 @@ module.exports = options => {
                 .pipe(gulp.plugins.filter('**/*.js'))
                 .pipe(gulp.plugins.sourcemaps.init())
                 .pipe(gulp.plugins.concat('vendor.js'))
-                .pipe(gulp.plugins.sourcemaps.write(gulp.data.get('paths.base')))
+                .pipe(gulp.plugins.sourcemaps.write('.'))
                 .pipe(gulp.dest(gulp.data.get('paths.dev.folder.assets.js')));
         },
         'sass:browser': done => {
@@ -76,8 +76,8 @@ module.exports = options => {
                         .pipe(gulp.plugins.sourcemaps.init())
                         .pipe(gulp.plugins.sass())
                         .pipe(gulp.plugins.postcss(postcssProcessors))
-                        .pipe(gulp.plugins.concat(fileName + '.css'))
-                        .pipe(gulp.plugins.sourcemaps.write(gulp.data.get('paths.base')))
+                        .pipe(gulp.plugins.concat(`${ fileName }.css`))
+                        .pipe(gulp.plugins.sourcemaps.write('.'))
                         .pipe(gulp.dest(gulp.data.get('paths.dev.folder.assets.css')))
 
                     stream.add(newStream);
