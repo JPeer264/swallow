@@ -1,3 +1,3 @@
 const isEs6 = () => true;
 
-export { isEs6 };
+export default isEs6;
