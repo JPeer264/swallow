@@ -34,7 +34,7 @@
     "fs-extra": "^2.0.0",
     "glob": "^7.1.1",
     "grunt": "^1.0.1",
-    "gulp": "^3.9.1",
+    "gulp": "gulpjs/gulp#4.0",
     "gulp-babel": "^6.1.2",
     "gulp-cdnify": "^1.0.7",
     "gulp-clean": "^0.3.2",
