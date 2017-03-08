@@ -62,9 +62,7 @@ module.exports = options => {
                 configFile: gulp.data.get('paths.config.eslint')
             }, 'checkstyle', fileStream);
 
-        stream.on('finish', () => {
-            fileStream.end();
-        });
+        stream.on('finish', () => fileStream.end());
 
         return stream;
     };
