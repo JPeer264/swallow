@@ -140,7 +140,7 @@ gulp.task('serve:dev', gulp.series('build:dev', () => {
 
     gulp.plugins.watch(gulp.data.get('paths.src.allFiles.js'), gulp.series('manage:js', browserSync.reload))
     gulp.plugins.watch(gulp.data.get('paths.src.allFiles.scss'), gulp.series('manage:sass', browserSync.reload))
-    gulp.plugins.watch(gulp.data.get('paths.src.allFiles.copy'), () => {
+    gulp.plugins.watch(gulp.data.get('paths.src.copy'), () => {
         return gulp.src(gulp.data.get('paths.src.copy'))
             .pipe(gulp.dest(gulp.data.get('paths.dev.base')))
             .pipe(browserSync.reload);
