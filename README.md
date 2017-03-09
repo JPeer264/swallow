@@ -55,7 +55,7 @@ $ gulp clean
 
 - [Browser stylesheets](#browser-stylesheets)
 - [Production ready code](#production-ready-code)
-- [RollupJS (ES2015)](#rollupjs-es2015)
+- [Webpack](#webpack)
 - [Testing](#testing)
 - [Linting](#linting)
 - [Live coding](#live-conding)
@@ -91,20 +91,21 @@ Output for development:
 
 Your code gets automatically optimized when triggering `gulp build:prod`. This includes minified files, selectors, autoprefixer and much more.
 
-### RollupJS (ES2015)
+### Webpack
 
-[RollupJS](http://rollupjs.org/) is used to bundle all necessary js files. The entry point is defined in `./config/paths/paths` in the object `src.files.jsEntry`. The name of the entry point is specified in `./config/paths/names` in the object `files.jsEntry`.
+[Webpack](https://webpack.js.org/) is used to bundle all necessary js files. The entry point is defined in `./config/paths/paths` in the object `src.files.jsEntry`. The name of the entry point is specified in `./config/paths/names` in the object `files.jsEntry`.
 
-Write your code with ES2015 syntax.
+Write your code in ES6.
 
 Look [here](https://github.com/JPeer264/swallow/blob/master/src/assets/js/main.js) into `./src/assets/js/main.js`.
 
 ### Testing
+> Tests can be written in `./tests` or in `./src`. In `./src` all tests have to end with `.spec.js`
 
 Test your code with mocha with `gulp test`. It will test your code in `chrome`, `firefox` and `phantomjs` using `karma`. You can change the karma configuration in `./config/karma.js`
 
 ### Linting
-> All configuration files are stored in the directory `./config`
+> All configuration files are stored in the directory `./config`. The [airbnb styleguide](https://github.com/airbnb/javascript/) is used by default.
 
 Lint your `scss`, `js` and `html` code with `gulp lint`. This task will NOT fail. If you have a CI system just run `gulp lint:fail` and it will fail on any error.
 
