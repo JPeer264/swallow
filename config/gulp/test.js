@@ -1,13 +1,14 @@
+import { Server } from 'karma';
+
 module.exports = options => {
     const { gulp } = options;
-    const Server   = require('karma').Server;
 
     return {
         all: done => {
-            new Server({
-                configFile: __dirname + '/../karma.js',
+            Server.start({
+                configFile: gulp.data.get('paths.config.karma'),
                 singleRun: true
-            }, done).start();
+            }, done);
         }
     };
 };

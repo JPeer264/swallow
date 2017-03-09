@@ -1,4 +1,4 @@
-import { isEs6 } from './is';
+import isEs6 from './is';
 
 describe('scroll.js', () => {
     it('should', () => {
