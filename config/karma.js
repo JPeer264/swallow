@@ -5,13 +5,14 @@ module.exports = config => {
     config.set({
         basePath: '../',
         preprocessors: {
-            'src/*.spec.js': ['webpack'],
+            'tests/**/*.spec.js': ['webpack'],
             'src/**/*.spec.js': ['webpack'],
             // '**/src/**/*.js': ['coverage']
         },
         files: [
             // 'dev/assets/js/vendor.js',
             // 'src/**/*.js',
+            { pattern: 'tests/**/*.spec.js', watched: false },
             { pattern: 'src/**/*.spec.js', watched: false }
             // each file acts as entry point for the webpack configuration
         ],
