@@ -1,6 +1,6 @@
 # 🍹 Swallow
 
-> A Gulp boilerplate for testing, live conding, linting, deploying, ...
+> A Gulp boilerplate for testing, live coding, linting, deploying, ...
 
 > It is also optimized for CI systems
 
